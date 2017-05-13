@@ -1,0 +1,52 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
+
+    <!-- Filter the Trainings -->
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='col-md-2'> Filter by :</div>
+            <div class='col-md-2'>
+                <input type='text' [(ngModel)]='listFilter' />
+            </div>
+            <div class='col-md-2'>
+                <button type="button" [routerLink]="['/addtraining']" class="btn btn-primary">+ Add Training</button>
+            </div>
+        </div>
+        <div class='row' *ngIf='listFilter'>
+            <div class='col-md-6'>
+                <h3>Filtered by: {{listFilter}} </h3>
+            </div>
+        </div>
+
+        <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+        <div class='table-responsive '>
+            <table class="table table-striped" *ngIf='trainings && trainings.length'>
+                <thead>
+                    <tr>
+                        <th *ngFor='let trainingAttribute of trainingAttributes'> {{trainingAttribute}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let training of trainings | trainingFilter :listFilter:sortColumn:sortOrder'>
+                        <td>
+                            <img *ngIf='training ' [src]='training.imageUrl ' [title]='training.trainingName | uppercase ' [style.width.px]='imageWidth ' [style.margin.px]='imageMargin ' onError="this.src='http://iimbg.ac.in/sites/all/themes/iimc/images/no-image.jpg'">
+                            <a [routerLink]="['/showtraining',training._id ]">
+                            {{training.tname}}
+                            </a>
+                        </td>
+                        <td>{{ training.mode | uppercase}}</td>
+                        <td>{{ training.status}}</td>
+                        <td>{{ training.duration}} Hours </td>
+                        <td>
+                            <app-trainings-star-rating [popularity]='training.popularity' (ratingClicked)='onRatingClicked($event)'></app-trainings-star-rating>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading' style='font-size:large'>
+        {{pageTitle}}
+    </div>
+
+    <div class='panel-body'>
+        <div class='row row-grid'>
+            <div class='col-md-6'>
+                <div class='row row-grid'>
+                    <div class='col-md-3'>Name:</div>
+                    <div class='col-md-6'><input [(ngModel)]='test' /></div>
+                </div>
+                <div class='row row-grid'>
+                    <div class='col-md-3'>Code:</div>
+                    <div class='col-md-6'><input type='text' /></div>
+                </div>
+                <div class='row row-grid'>
+                    <div class='col-md-3'>Nature:</div>
+                    <div class='col-md-6'><input type='text' /></div>
+                </div>
+                <div class='row row-grid'>
+                    <div class='col-md-3'>Description:</div>
+                    <div class='col-md-6'><input type='text' /></div>
+                </div>
+                <div class='row row-grid'>
+                    <div class='col-md-3'>Duration:</div>
+                    <div class='col-md-6'><input type='text' /> Hours</div>
+                </div>
+                <div class='row row-grid'>
+                    <div class='col-md-3'>Training Image URL:</div>
+                    <div class='col-md-6'>
+                        <input type='text' ng-model="imgURL" />
+                    </div>
+                    <div class=' col-md-6 '>
+                        <img class='center-block img-responsive ' [style.width.px]='200 ' [style.margin.px]='2 '>
+                    </div>
+                </div>
+
+
+                <div class='row row-grid'>
+                    <div class='col-md-2'>
+                        <button type="button" [routerLink]="['/addtraining']" class="btn btn-primary">Clear</button>
+                    </div>
+                    <div class=' col-md-2'>
+                        <button type="button" [routerLink]="['/addtraining']" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class='col-md-6 '>
+                <img class='center-block img-responsive ' [style.width.px]='200 ' [style.margin.px]='2 ' [style.height.px]='200 ' src="imgURL" [title]='Test ' onError="this.src='http://iimbg.ac.in/sites/all/themes/iimc/images/no-image.jpg'" />
+            </div>
+        </div>
+    </div>
+    <div class='panel-footer '>
+        <a class='btn btn-default ' (click)='onBack() ' style='width:80px '>
+            <i class='glyphicon glyphicon-chevron-left '></i> Back
+        </a>
+    </div>
+</div>
