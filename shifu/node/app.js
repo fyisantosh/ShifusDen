@@ -1,7 +1,9 @@
 var express = require("express");
+var cors = require('cors');
 var trainingsDAO = require("./service/trainingsDAO");
 
 app = new express();
+app.use(cors())
 
 app.get("/trainings", function (req, res) {
     console.log("Getting trainings");
