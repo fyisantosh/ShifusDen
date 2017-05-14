@@ -3,16 +3,14 @@ var cors = require('cors');
 var trainingsDAO = require("./service/trainingsDAO");
 
 app = new express();
-app.use(cors())
+app.use(cors());
 
 app.get("/trainings", function (req, res) {
-    console.log("Getting trainings");
-    res.send(trainingsDAO.getTrainingsList(''));
-});
-
-app.get("/trainings/:searchterm", function (req, res) {
-    console.log("Getting trainings matching " + req.params['searchterm']);
-    res.send(trainingsDAO.getTrainingsList(req.params['searchterm']));
+    console.log("Getting " + req.query.n + " trainings starting from " + req.query.c + " with term " + req.query.q);
+    n = req.query.n || 0;
+    c = req.query.c || 10;
+    q = req.query.q || '';
+    res.send(trainingsDAO.getTrainingsList(n,c,q));
 });
 
 app.get("/training/:id", function (req, res) {
