@@ -6,11 +6,11 @@ app = new express();
 app.use(cors());
 
 app.get("/trainings", function (req, res) {
-    console.log("Getting " + req.query.n + " trainings starting from " + req.query.c + " with term " + req.query.q);
-    n = req.query.n || 0;
-    c = req.query.c || 10;
+    console.log("Getting " + req.query.n + " trainings starting from " + req.query.s + " with term " + req.query.q);
+    n = req.query.n || 10;
+    s = req.query.s || 0;
     q = req.query.q || '';
-    res.send(trainingsDAO.getTrainingsList(n,c,q));
+    res.send(trainingsDAO.getTrainingsList(n,s,q));
 });
 
 app.get("/training/:id", function (req, res) {
