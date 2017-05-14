@@ -9,8 +9,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class TrainingService {
 
-  private _trainingURL = 'api/trainings/training.json';
-  //private _trainingURL = 'http://10.2.122.111:3000/trainings';
+  //private _trainingURL = 'api/trainings/training.json';
+  private _trainingURL = 'http://10.2.122.111:3000/trainings';
   private _trainingURLs = 'api/trainings/trainingShowData.json';
 
   getTrainings(): Observable<ITraining[]> {
