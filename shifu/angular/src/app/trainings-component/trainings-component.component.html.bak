@@ -1,7 +1,3 @@
-<ul class="pager">
-    <li class="next"><a href="#" (click)='next()'>Next&#62;&#62;</a></li>
-    <li class="next"><a href="#" (click)='previous()'>&#60;&#60;Previous</a></li>
-</ul>
 <div class='panel panel-primary'>
     <div class='panel-heading'>
         {{pageTitle}}
@@ -37,16 +33,16 @@
                 <tbody>
                     <tr *ngFor='let training of trainings | trainingFilter :listFilter:sortColumn:sortOrder'>
                         <td>
-                            <img *ngIf='training ' [src]='training?.imageUrl ' [title]='training?.trainingName | uppercase ' [style.width.px]='imageWidth ' [style.margin.px]='imageMargin ' onError="this.src='http://iimbg.ac.in/sites/all/themes/iimc/images/no-image.jpg'">
-                            <a [routerLink]="['/showtraining',training?._id ]">
-                            {{training?.tname}}
+                            <img *ngIf='training ' [src]='training.imageUrl ' [title]='training.trainingName | uppercase ' [style.width.px]='imageWidth ' [style.margin.px]='imageMargin ' onError="this.src='http://iimbg.ac.in/sites/all/themes/iimc/images/no-image.jpg'">
+                            <a [routerLink]="['/showtraining',training._id ]">
+                            {{training.tname}}
                             </a>
                         </td>
-                        <td>{{ training?.mode | uppercase}}</td>
-                        <td>{{ training?.status}}</td>
-                        <td>{{ training?.duration}} Hours </td>
+                        <td>{{ training.mode | uppercase}}</td>
+                        <td>{{ training.status}}</td>
+                        <td>{{ training.duration}} Hours </td>
                         <td>
-                            <app-trainings-star-rating [popularity]='training?.popularity' (ratingClicked)='onRatingClicked($event)'></app-trainings-star-rating>
+                            <app-trainings-star-rating [popularity]='training.popularity' (ratingClicked)='onRatingClicked($event)'></app-trainings-star-rating>
                         </td>
                     </tr>
                 </tbody>
@@ -54,7 +50,3 @@
         </div>
     </div>
 </div>
-<ul class="pager">
-    <li class="next"><a href="#" (click)='next()'>Next&#62;&#62;</a></li>
-    <li class="next"><a href="#" (click)='previous()'>&#60;&#60;Previous</a></li>
-</ul>
