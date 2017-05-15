@@ -12,7 +12,7 @@ export class TrainingsComponent implements OnInit {
     pageTitle: string = 'Master Shifu\'s Den';
     trainingAttributes:string[]=['Training','Mode','Status','Duration','Popularity'];
     pageNumber:number=0;
-    recordPerPage:number=5;
+    recordPerPage:number=10;
     imageWidth: number = 50;
     imageMargin: number = 2; 
     showImage: boolean = false;
