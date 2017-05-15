@@ -1,6 +1,6 @@
 <ul class="pager">
-    <li class="next"><a (click)='next()'>Next&#62;&#62;</a></li>
-    <li class="next"><a (click)='previous()'>&#60;&#60;Previous</a></li>
+    <li class="next"><a (click)='next()'>Next &#160;&#62;&#62;</a></li>
+    <li class="next"><a (click)='previous()'>&#60;&#60;&#160;Previous</a></li>
 </ul>
 <div class='panel panel-primary'>
     <div class='panel-heading'>
@@ -17,8 +17,8 @@
             <div class='col-md-2'>
                 <button type="button" class="btn btn-primary btn-sm" (click)='search()'>Search</button>
             </div>
-            <div class='col-md-4'>
-                <button type="button" [routerLink]="['/addtraining']" class="btn btn-primary">+ Add Training</button>
+            <div class='col-md-6'>
+                <button type="button" [routerLink]="['/addtraining']" class="btn btn-primary pull-right">+ Add Training</button>
             </div>
         </div>
         <div class='row' *ngIf='listFilter'>
@@ -58,6 +58,6 @@
     </div>
 </div>
 <ul class="pager">
-    <li class="next"><a (click)='next()'>Next&#62;&#62;</a></li>
-    <li class="next"><a (click)='previous()'>&#60;&#60;Previous</a></li>
+    <li class="next"><a (click)='next()'>Next&#160;&#62;&#62;</a></li>
+    <li class="next"><a (click)='previous()'>&#60;&#60;&#160;Previous</a></li>
 </ul>

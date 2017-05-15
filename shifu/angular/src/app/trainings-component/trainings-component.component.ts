@@ -51,6 +51,7 @@ export class TrainingsComponent implements OnInit {
     }
 
     search(){
+      this.pageNumber=0;
       this.getTraining(); 
     }
 }

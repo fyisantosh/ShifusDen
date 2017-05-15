@@ -12,7 +12,6 @@ import { WelcomeComponent } from './welcome-component.component';
 import { AboutUSComponent } from './about-us.component';
 import { TrainingAdditionComponent } from './training-addition-component/training-addition-component.component';
 import { TrainingViewEditComponent } from './training-view-edit-component/training-view-edit.component';
-import { TrainingAditionGuard } from './training-addition-component/training-addition-guard-service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +29,6 @@ import { TrainingAditionGuard } from './training-addition-component/training-add
     HttpModule,
     RouterModule.forRoot([
       { path: 'welcome', component: TrainingsComponent },
-      { path: 'welcomeGuarded', component: TrainingsComponent },
       { path: 'aboutUs', component: AboutUSComponent },
       { path: 'addtraining', component: TrainingAdditionComponent },
       { path: 'showtraining/:id', component: TrainingViewEditComponent },
@@ -38,7 +36,7 @@ import { TrainingAditionGuard } from './training-addition-component/training-add
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
     ])
   ],
-  providers: [TrainingService,TrainingAditionGuard],
+  providers: [TrainingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
