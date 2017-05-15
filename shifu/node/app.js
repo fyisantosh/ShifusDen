@@ -5,12 +5,13 @@ var trainingsDAO = require("./service/trainingsDAO");
 app = new express();
 app.use(cors());
 
-app.get("/trainings", function (req, res) {
-    console.log("Getting " + req.query.n + " trainings starting from " + req.query.s + " with term " + req.query.q);
+app.get("/trainings", function (req, res) {    
     n = req.query.n || 10;
-    s = req.query.s || 1;
+    p = req.query.p || 0;
+    p = parseInt(n) * parseInt(p);
     q = req.query.q || '';
-    res.send(trainingsDAO.getTrainingsList(n,s,q));
+    console.log("Getting " + req.query.n + " trainings starting from " + req.query.p + " with term " + req.query.q);
+    res.send(trainingsDAO.getTrainingsList(n,p,q));
 });
 
 app.get("/training/:id", function (req, res) {

@@ -2,15 +2,16 @@ var training = require('./../db/connectdb');
 
 var trainings;
 
-var trainingsList = function (n, s, q) {
-    console.log("Querying " + n + " trainings starting from " + s + " with term " + q);
+var trainingsList = function (n, p, q) {
+    console.log("Querying " + n + " trainings starting from " + p + " with term " + q);
     var query = training.find({ 'tname': { '$regex': q, '$options': 'i' } })
         .limit(parseInt(n))
-        .skip(parseInt(s))
+        .skip(parseInt(p))
         .select({ 'tname': 1, 'status': 1, 'duration': 1, 'mode': 1 });
     
     query.exec(function (err, ts) {
         if (err) throw err;
+        console.log(ts.length);        
         trainings = ts;
     });
     return trainings;
