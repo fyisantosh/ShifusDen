@@ -16,10 +16,14 @@ export class TrainingService {
   //private _trainingURLs = 'api/trainings/trainingShowData.json';
 
 
-  getTrainings(pageNumber: number,recordPerPage: number): Observable<ITraining[]> {
+  getTrainings(pageNumber: number,recordPerPage: number,queryString: string): Observable<ITraining[]> {
     console.log('Called -->getTrainings');
-    console.log(this._trainingURL+'?p='+pageNumber+'&n='+recordPerPage);
-    return this._http.get(this._trainingURL+'?p='+pageNumber+'&n='+recordPerPage)
+    let url=this._trainingURL+'?p='+pageNumber+'&n='+recordPerPage+'&timestamp='+ Date.now();
+    if(queryString!=null){
+        url=url+'&q='+queryString;
+    }
+    console.log(url);
+    return this._http.get(url)
       .map((response: Response) => <ITraining[]>response.json())
       .do(data => console.log('ALL getTrainings:' + JSON.stringify(data)))
       .catch(this.handleError);

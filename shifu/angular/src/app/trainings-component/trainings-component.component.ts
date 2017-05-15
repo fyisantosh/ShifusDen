@@ -26,7 +26,7 @@ export class TrainingsComponent implements OnInit {
     }
 
     getTraining(){
-       this._trainingService.getTrainings(this.pageNumber,this.recordPerPage).subscribe(trainings =>this.trainings=trainings,
+       this._trainingService.getTrainings(this.pageNumber,this.recordPerPage,this.listFilter).subscribe(trainings =>this.trainings=trainings,
                                                      error => this.errorMessage =<any>error );       
 
     }
@@ -48,5 +48,9 @@ export class TrainingsComponent implements OnInit {
     next(){
         this.pageNumber=this.pageNumber+1; 
         this.getTraining(); 
+    }
+
+    search(){
+      this.getTraining(); 
     }
 }

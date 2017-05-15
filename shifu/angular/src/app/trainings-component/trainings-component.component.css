@@ -1,3 +1,11 @@
 thead {
     color: #337AB7
 }
+
+input {
+    width: 150px;
+}
+
+input:focus {
+    width: 165px;
+}
