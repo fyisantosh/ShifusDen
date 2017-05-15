@@ -12,8 +12,12 @@ export class TrainingService {
 
   //private _trainingURL = 'api/trainings/training.json';
   private _trainingURL = 'http://10.2.122.111:3000/trainings';
+<<<<<<< HEAD
   private _trainingURLs = 'http://10.2.122.111:3000/training';
   //private _trainingURLs = 'api/trainings/trainingShowData.json';
+=======
+  private _trainingURLs = 'api/trainings/trainingShowData.json';
+>>>>>>> origin/master
 
 
   getTrainings(pageNumber: number,recordPerPage: number): Observable<ITraining[]> {
