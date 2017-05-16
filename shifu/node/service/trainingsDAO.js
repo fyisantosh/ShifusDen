@@ -6,9 +6,12 @@ var trainingDAO = {
         p = req.query.p || 0;
         p = parseInt(n) * parseInt(p);
         q = req.query.q || '';
-        var query = training.find({ 'tname': { '$regex': q, '$options': 'i' } })
+        e = req.query.e || 0;
+        status_condition = [true];
+        if(e==1){status_condition[1]=false};
+        var query = training.find({ 'tname': { '$regex': q, '$options': 'i' },'status':{$in:status_condition} })
             .limit(parseInt(n))
-            .skip(parseInt(p))
+            .skip(parseInt(p))            
             .select({ 'tname': 1, 'status': 1, 'duration': 1, 'mode': 1 });
 
         query.exec(function (err, ts1) {
