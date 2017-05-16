@@ -12,10 +12,10 @@
         <div class='row'>
             <div class='col-md-2'> Filter by :</div>
             <div class='col-md-2'>
-                <input type='text' [(ngModel)]='listFilter' />
+                <input type='text' [(ngModel)]='listFilter' (ngModelChange)='search()' />
             </div>
             <div class='col-md-2'>
-                <button type="button" class="btn btn-primary btn-sm" (click)='search()'>Search</button>
+                <!-- <button type="button" class="btn btn-primary btn-sm" (click)='search()'>Search</button> -->
             </div>
             <div class='col-md-6'>
                 <button type="button" [routerLink]="['/addtraining']" class="btn btn-primary pull-right">+ Add Training</button>

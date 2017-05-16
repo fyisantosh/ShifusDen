@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ITraining} from '../trainings-component/training';
+import { ITraining } from '../trainings-component/training';
 import { TrainingService } from '../trainings-component/training.service';
 
 @Component({
@@ -8,50 +8,50 @@ import { TrainingService } from '../trainings-component/training.service';
   styleUrls: ['./trainings-component.component.css']
 })
 export class TrainingsComponent implements OnInit {
+  pageTitle: string = 'Master Shifu\'s Den';
+  trainingAttributes: string[] = ['Training', 'Mode', 'Status', 'Duration', 'Popularity'];
+  pageNumber: number = 0;
+  recordPerPage: number = 10;
+  imageWidth: number = 50;
+  imageMargin: number = 2;
+  showImage: boolean = false;
+  listFilter: string;
+  errorMessage: string;
 
-    pageTitle: string = 'Master Shifu\'s Den';
-    trainingAttributes:string[]=['Training','Mode','Status','Duration','Popularity'];
-    pageNumber:number=0;
-    recordPerPage:number=10;
-    imageWidth: number = 50;
-    imageMargin: number = 2; 
-    showImage: boolean = false;
-    listFilter: string;
-    errorMessage: string;
+  trainings: ITraining[];
 
-    trainings: ITraining[];
+  constructor(private _trainingService: TrainingService) {
 
-    constructor(private _trainingService:TrainingService) {
+  }
 
-    }
+  getTraining() {
+    this._trainingService.getTrainings(this.pageNumber, this.recordPerPage, this.listFilter).subscribe(trainings => this.trainings = trainings,
+      error => this.errorMessage = <any>error);
 
-    getTraining(){
-       this._trainingService.getTrainings(this.pageNumber,this.recordPerPage,this.listFilter).subscribe(trainings =>this.trainings=trainings,
-                                                     error => this.errorMessage =<any>error );       
+  }
+  ngOnInit(): void {
+    this.getTraining();
+  }
 
-    }
-    ngOnInit(): void {
+  onRatingClicked(message: string): void {
+    this.pageTitle = 'Training List: ' + message;
+  }
+
+  previous() {
+    if (this.pageNumber > 0) {
+      this.pageNumber = this.pageNumber - 1;
       this.getTraining();
     }
+  }
 
-    onRatingClicked(message: string): void {
-        this.pageTitle = 'Training List: ' + message;
-    }
+  next() {
+    this.pageNumber = this.pageNumber + 1;
+    this.getTraining();
+  }
 
-    previous(){
-      if(this.pageNumber>0){
-        this.pageNumber=this.pageNumber-1;  
-        this.getTraining();
-      }
-    }
-
-    next(){
-        this.pageNumber=this.pageNumber+1; 
-        this.getTraining(); 
-    }
-
-    search(){
-      this.pageNumber=0;
-      this.getTraining(); 
-    }
+  search() {
+    //alert('in search');
+    this.pageNumber = 0;
+    this.getTraining();
+  }
 }
