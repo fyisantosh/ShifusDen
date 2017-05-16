@@ -21,4 +21,8 @@ export class TrainingAdditionComponent implements OnInit, OnChanges {
    alert('something changed!');
  }
 
+ onBack(){
+    this._router.navigate(['/welcome']);
+  }
+
 }

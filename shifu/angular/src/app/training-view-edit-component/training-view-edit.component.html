@@ -41,11 +41,11 @@
                     <div class='col-md-8'>
                         <br><br><br>
                         <ul class="nav nav-tabs">
-                            <li class="active"><a [routerLink]="['active']">Active</a></li>
-                            <li><a [routerLink]="['completed']">Completed</a></li>
-                            <li><a [routerLink]="['abandoned']">Abandoned</a></li>
+                            <li [class]='active'><a (click)="onTabClick('active')">Active</a></li>
+                            <li [class]='completed '><a (click)="onTabClick('completed')">Completed</a></li>
+                            <li [class]='abandoned '><a (click)="onTabClick('abandoned')">Abandoned</a></li>
                         </ul>
-                        <div class='container'>
+                        <div class=' container '>
                             <router-outlet></router-outlet>
                         </div>
                     </div>
@@ -63,6 +63,6 @@
     </div>
 
 </div>
-<div class='container' style="display: none;">
+<div class='container ' style="display: none; ">
     <router-outlet></router-outlet>
 </div>
