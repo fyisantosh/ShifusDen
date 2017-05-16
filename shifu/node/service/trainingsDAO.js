@@ -1,32 +1,30 @@
 var training = require('./../db/connectdb');
 
-var trainings;
+var trainingDAO = {
+    getAll: function (req, res) {
+        n = req.query.n || 10;
+        p = req.query.p || 0;
+        p = parseInt(n) * parseInt(p);
+        q = req.query.q || '';
+        var query = training.find({ 'tname': { '$regex': q, '$options': 'i' } })
+            .limit(parseInt(n))
+            .skip(parseInt(p))
+            .select({ 'tname': 1, 'status': 1, 'duration': 1, 'mode': 1 });
 
-var trainingsList = function (n, p, q) {
-    console.log("Querying " + n + " trainings starting from " + p + " with term " + q);
-    var query = training.find({ 'tname': { '$regex': q, '$options': 'i' } })
-        .limit(parseInt(n))
-        .skip(parseInt(p))
-        .select({ 'tname': 1, 'status': 1, 'duration': 1, 'mode': 1 });
-    
-    query.exec(function (err, ts) {
-        if (err) throw err;
-        console.log(ts.length);        
-        trainings = ts;
-    });
-    return trainings;
+        query.exec(function (err, ts1) {
+            if (err) throw err;
+            console.log(ts1.length);
+            res.send(ts1);
+        });
+    },
+
+    getById: function (req, res) {
+        console.log("Getting training details " + req.params['id']);
+        training.find({ '_id': req.params['id'] }, { 'tname': 1, 'status': 1, 'duration': 1, 'mode': 1, 'desc': 1 }, function (err, ts1) {
+            if (err) throw err;
+            res.send(ts1);
+        });
+    }
 }
 
-var atraining = function (id) {
-    console.log('getting ' + id);
-    training.find({ '_id': id }, { 'tname': 1, 'status': 1, 'duration': 1, 'mode': 1, 'desc': 1 }, function (err, ts) {
-        if (err) throw err;
-        trainings = ts;
-    });
-    return trainings;
-}
-
-module.exports = {
-    getTrainingsList: trainingsList,
-    getTrainingDetails: atraining
-};
+module.exports = trainingDAO;
