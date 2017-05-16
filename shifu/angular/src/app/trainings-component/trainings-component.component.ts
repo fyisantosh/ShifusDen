@@ -11,6 +11,8 @@ export class TrainingsComponent implements OnInit {
 
     pageTitle: string = 'Master Shifu\'s Den';
     trainingAttributes:string[]=['Training','Mode','Status','Duration','Popularity'];
+    pageNumber:number=0;
+    recordPerPage:number=10;
     imageWidth: number = 50;
     imageMargin: number = 2; 
     showImage: boolean = false;
@@ -23,18 +25,33 @@ export class TrainingsComponent implements OnInit {
 
     }
 
-    toggleImage(): void {
-        this.showImage = !this.showImage;
-    }
-
-    ngOnInit(): void {
-
-      this._trainingService.getTrainings().subscribe(trainings =>this.trainings=trainings,
+    getTraining(){
+       this._trainingService.getTrainings(this.pageNumber,this.recordPerPage,this.listFilter).subscribe(trainings =>this.trainings=trainings,
                                                      error => this.errorMessage =<any>error );       
+
+    }
+    ngOnInit(): void {
+      this.getTraining();
     }
 
     onRatingClicked(message: string): void {
         this.pageTitle = 'Training List: ' + message;
     }
 
+    previous(){
+      if(this.pageNumber>0){
+        this.pageNumber=this.pageNumber-1;  
+        this.getTraining();
+      }
+    }
+
+    next(){
+        this.pageNumber=this.pageNumber+1; 
+        this.getTraining(); 
+    }
+
+    search(){
+      this.pageNumber=0;
+      this.getTraining(); 
+    }
 }

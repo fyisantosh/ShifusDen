@@ -10,16 +10,7 @@ import { TrainingService } from '../trainings-component/training.service';
 })
 export class TrainingViewEditComponent implements OnInit {
   pageTitle: string = 'Training Detail';
-  training: ITraining = {
-    "_id": "",
-    "tname": "",
-    "mode": "",
-    "status":true,
-    "duration": 0,
-    "desc": "",
-    "popularity": 3,
-    "imageUrl": "http://iimbg.ac.in/sites/all/themes/iimc/images/no-image.jpg"
-  };
+  training: ITraining;
   
   errorMessage: string;
 
@@ -31,10 +22,10 @@ export class TrainingViewEditComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.route.snapshot.params['id']);
     let trainingId = this.route.snapshot.params['id'];
-    console.log('before calling gettrainings called successfully!!!' + trainingId);
-    this._trainingService.getTraining(trainingId).subscribe(training => this.training = training,
+    console.log('Before calling gettraining called successfully!!!' + trainingId);
+    this._trainingService.getTraining(trainingId).subscribe(training => this.training=training[0],
       error => this.errorMessage = <any>error);
-    console.log('After calling gettrainings called successfully!!!' + this.training.tname);
+    console.log('After calling gettraining called successfully!!!' + this.training);
   }
 
   onBack(){
