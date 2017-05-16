@@ -1,0 +1,7 @@
+table {
+    width: 75%;
+}
+
+table.fixed {
+    table-layout: fixed;
+}
