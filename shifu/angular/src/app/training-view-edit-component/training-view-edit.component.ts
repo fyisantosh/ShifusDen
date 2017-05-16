@@ -39,7 +39,7 @@ export class TrainingViewEditComponent implements OnInit {
 
 
   onTabClick(tabName: string) {
-    alert(tabName);
+    //alert(tabName);
     let trainingId = this.route.snapshot.params['id'];
     //alert(trainingId);
     if (tabName.includes('active')) {
