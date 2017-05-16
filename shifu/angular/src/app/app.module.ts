@@ -12,6 +12,8 @@ import { WelcomeComponent } from './welcome-component.component';
 import { AboutUSComponent } from './about-us.component';
 import { TrainingAdditionComponent } from './training-addition-component/training-addition-component.component';
 import { TrainingViewEditComponent } from './training-view-edit-component/training-view-edit.component';
+import { TRAINING_ROUTE } from './training-view-edit-component/training-routes';
+import { UserListComponent } from './user-list/user-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,8 @@ import { TrainingViewEditComponent } from './training-view-edit-component/traini
     WelcomeComponent,
     AboutUSComponent,
     TrainingAdditionComponent,
-    TrainingViewEditComponent
+    TrainingViewEditComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +35,7 @@ import { TrainingViewEditComponent } from './training-view-edit-component/traini
       { path: 'aboutUs', component: AboutUSComponent },
       { path: 'addtraining', component: TrainingAdditionComponent },
       { path: 'showtraining/:id', component: TrainingViewEditComponent },
+       { path: 'showtraining/:id', component: TrainingViewEditComponent,children:TRAINING_ROUTE  },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
     ])

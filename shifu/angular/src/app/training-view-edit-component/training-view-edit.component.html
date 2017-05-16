@@ -36,6 +36,20 @@
                         <img class='center-block img-responsive ' [style.width.px]='200 ' [style.margin.px]='2 '>
                     </div>
                 </div>
+
+                <div class='row row-grid'>
+                    <div class='col-md-8'>
+                        <br><br><br>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a [routerLink]="['active']">Active</a></li>
+                            <li><a [routerLink]="['completed']">Completed</a></li>
+                            <li><a [routerLink]="['abandoned']">Abandoned</a></li>
+                        </ul>
+                        <div class='container'>
+                            <router-outlet></router-outlet>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class='col-md-6 '>
                 <img class='center-block img-responsive ' [style.width.px]='200 ' [style.margin.px]='2 ' [style.height.px]='200 ' [src]='training.imageUrl ' [title]='training.tname ' onError=" this.src='http://iimbg.ac.in/sites/all/themes/iimc/images/no-image.jpg ' ">
@@ -48,4 +62,7 @@
         </a>
     </div>
 
+</div>
+<div class='container' style="display: none;">
+    <router-outlet></router-outlet>
 </div>
