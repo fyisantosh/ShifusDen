@@ -1,4 +1,5 @@
-var training = require('./../db/connectdb');
+var training = require('./../models/training');
+var trainee = require('./../models/trainee');
 
 var trainingDAO = {
     getAll: function (req, res) {
@@ -8,10 +9,10 @@ var trainingDAO = {
         q = req.query.q || '';
         e = req.query.e || 0;
         status_condition = [true];
-        if(e==1){status_condition[1]=false};
-        var query = training.find({ 'tname': { '$regex': q, '$options': 'i' },'status':{$in:status_condition} })
+        if (e == 1) { status_condition[1] = false };
+        var query = training.find({ 'tname': { '$regex': q, '$options': 'i' }, 'status': { $in: status_condition } })
             .limit(parseInt(n))
-            .skip(parseInt(p))            
+            .skip(parseInt(p))
             .select({ 'tname': 1, 'status': 1, 'duration': 1, 'mode': 1 });
 
         query.exec(function (err, ts1) {
@@ -27,6 +28,29 @@ var trainingDAO = {
             if (err) throw err;
             res.send(ts1);
         });
+    },
+
+    getTraineesByStatus: function (req, res) {
+        training.aggregate(
+            [
+                { $match: { "_id": req.params['id'] } },
+                {
+                    $project: {
+                        trainees: {
+                            $filter: {
+                                input: '$trainees',
+                                as: 'trainees',
+                                cond: { $eq: ['$$trainees.status', req.params['status']] }
+                            }
+                        },
+                        _id: 1
+                    }
+                }
+            ]
+            , function (err, ts) {
+                if (err) throw err;
+                res.send(ts[0]);
+            })
     }
 }
 
