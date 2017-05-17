@@ -4,7 +4,12 @@
     "status": false,
     "duration": 42,
     "mode": "webinar",
-    "desc": "Velit ad fugiat nisi ea pariatur ipsum laboris veniam exercitation nisi. Est qui non aute ullamco aute ipsum amet elit nulla dolor voluptate culpa."
+    "desc": "Velit ad fugiat nisi ea pariatur ipsum laboris veniam exercitation nisi. Est qui non aute ullamco aute ipsum amet elit nulla dolor voluptate culpa.",
+    "trainees":[
+      {"psno":721418, "status":"c", "start_date":"sd", "status_date":"std"},
+      {"psno":721418, "status":"p", "start_date":"sd", "status_date":"std"},
+      {"psno":721418, "status":"c", "start_date":"sd", "status_date":"std"}
+    ]
   }
   {
     "_id": "5913b4e575bd24a88772d51b",

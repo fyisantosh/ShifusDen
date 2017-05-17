@@ -10,3 +10,36 @@
       }
     }  
 ]
+
+
+
+[
+  {
+    'repeat(5, 100)': {
+      psno: '{{random(721410, 721411, 721412, 721413, 721414, 721415, 721416, 721417, 721418, 721419, 721420, 721421, 721422, 721423, 721424, 721425, 721426, 721427, 721428, 721429, 721430)}}',
+      status: '{{random("p", "c", "a")}}',
+      status_date: '{{moment(this.date(new Date(2016, 0, 1), new Date())).format("LLLL")}}',
+      target_date: '{{moment(this.date(new Date(2016, 0, 1), new Date())).format("LLLL")}}'
+    }
+  }
+]
+
+
+
+[
+  {
+    'repeat(5, 50)': {
+      _id: '{{index(721410)}}',
+      opco: '{{random("Marsh", "GuyCarp", "Mercer", "FIS", "MGTI")}}',
+      name: {
+        first: '{{firstName()}}',
+        last: '{{surname()}}'
+      },
+      email: function (tags) {
+        // Email tag is deprecated, because now you can produce an email as simple as this:
+        return (this.name.first + '.' + this.name.last + '@' + this.opco + tags.domainZone()).toLowerCase();
+      },
+      phone: '+1 {{phone()}}'
+    }
+  }
+]
