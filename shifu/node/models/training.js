@@ -2,17 +2,18 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost/shifudb');
+if (mongoose.connection.readyState == 0)
+  mongoose.connect('mongodb://localhost/shifudb');
 
 var trainingSchema = new Schema({
-  _id:  String,
+  _id: String,
   tname: String,
-  status:   Boolean,
+  status: Boolean,
   duration: Number,
   mode: String,
   desc: String
 });
 
-var training = mongoose.model('trainings', trainingSchema,'trainings');
+var training = mongoose.model('trainings', trainingSchema, 'trainings');
 
 module.exports = training;
