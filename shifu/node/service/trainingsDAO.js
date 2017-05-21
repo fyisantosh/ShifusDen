@@ -37,7 +37,7 @@ var trainingDAO = {
             [
                 { $match: { "_id": req.params['id'] } },
                 { $unwind: "$trainees" },
-                { $match: { "trainees.status": req.params['status'] } },
+                { $match: { "trainees.status": req.query.s } },
                 {
                     $lookup:
                     {
@@ -50,7 +50,6 @@ var trainingDAO = {
                 { $unwind: "$trainees.trainee_details" },
                 {
                     $project: {
-                        "_id":0,
                         "psno": "$trainees.psno",
                         "status_date": "$trainees.status_date",
                         "target_date": "$trainees.target_date",
