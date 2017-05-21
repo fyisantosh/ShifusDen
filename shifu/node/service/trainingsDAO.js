@@ -36,23 +36,36 @@ var trainingDAO = {
         training.aggregate(
             [
                 { $match: { "_id": req.params['id'] } },
+                { $unwind: "$trainees" },
+                { $match: { "trainees.status": req.params['status'] } },
+                {
+                    $lookup:
+                    {
+                        from: "trainee",
+                        localField: "trainees.psno",
+                        foreignField: "_id",
+                        as: "trainees.trainee_details"
+                    }
+                },
+                { $unwind: "$trainees.trainee_details" },
                 {
                     $project: {
-                        trainees: {
-                            $filter: {
-                                input: '$trainees',
-                                as: 'trainees',
-                                cond: { $eq: ['$$trainees.status', req.params['status']] }
-                            }
-                        },
-                        _id: 1
+                        "_id":0,
+                        "psno": "$trainees.psno",
+                        "status_date": "$trainees.status_date",
+                        "target_date": "$trainees.target_date",
+                        "first_name": "$trainees.trainee_details.name.first",
+                        "last_name": "$trainees.trainee_details.name.last",
+                        "opco": "$trainees.trainee_details.opco",
+                        "email": "$trainees.trainee_details.email",
+                        "phone": "$trainees.trainee_details.phone"
                     }
                 }
             ]
-            , function (err, ts) {
-                if (err) throw err;
-                res.send(ts[0]);
-            })
+        ).exec(function (err, ts) {
+            if (err) throw err;
+            res.send(ts);
+        });
     }
 }
 

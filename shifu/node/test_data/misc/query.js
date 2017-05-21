@@ -47,18 +47,45 @@ db.trainings.update(
 
 
 db.trainings.find(
-    {"_id":"5913b4e510adad41cc4216d1"},
-    {"trainees": {$elemMatch: {"status":"c"}}}
+    { "_id": "5913b4e510adad41cc4216d1" },
+    { "trainees": { $elemMatch: { "status": "c" } } }
 )
 
 db.trainings.aggregate([
-    {$match: {"_id":"5913b4e510adad41cc4216d1"}},
-    {$project: {
-        trainees: {$filter: {
-            input: '$trainees',
-            as: 'trainees',
-            cond: {$eq: ['$$trainees.status', 'c']}
-        }},
-        _id: 1
-    }}
+    { $match: { "_id": "5913b4e510adad41cc4216d1" } },
+    {
+        $project: {
+            trainees: {
+                $filter: {
+                    input: '$trainees',
+                    as: 'trainees',
+                    cond: { $eq: ['$$trainees.status', 'c'] }
+                }
+            },
+            _id: 1
+        }
+    }
 ])
+
+db.trainings.aggregate(
+    [
+        { $match: { "_id": "5913b4e510adad41cc4216d1" } },
+        { $unwind: "$trainees" },
+        {$match: {"trainees.status":"c"}},
+        {
+            $lookup:
+            {
+                from:"trainee",
+                localField:"trainees.psno",
+                foreignField:"_id",
+                as:"trainees.trainee_details"
+            }
+        },
+        {
+            $project:{
+                _id:0,
+                "psno":""
+            }
+        }
+    ]
+)
