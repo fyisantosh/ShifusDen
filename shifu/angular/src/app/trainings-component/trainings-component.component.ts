@@ -19,7 +19,6 @@ export class TrainingsComponent implements OnInit {
   errorMessage: string;
 
   trainings: ITraining[];
-
   constructor(private _trainingService: TrainingService) {
 
   }

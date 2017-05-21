@@ -1,88 +1,60 @@
-<div *ngIf="tab=='active'">
-    <br><br>Work in progess user...long way to go .... <br><br>
-    <table class="table table-condensed table-striped fixed">
-        <thead>
-            <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Active1</td>
-                <td>User1</td>
-                <td>active1@user1.com</td>
-            </tr>
-            <tr>
-                <td>Active2</td>
-                <td>User2</td>
-                <td>active2@user2.com</td>
-            </tr>
-            <tr>
-                <td>Active3</td>
-                <td>User3</td>
-                <td>active3@user3.com</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div *ngIf="tab=='completed'">
-    <br><br> Proud users who completed the training.
+<div *ngIf="tab=='a'">
     <br><br>
     <table class="table table-condensed table-striped fixed">
         <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
+                <th>PS#</th>
+                <th>Name</th>
+                <th>% Completion</th>
+                <th>Target Date</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Completed1</td>
-                <td>User1</td>
-                <td>Completed1@user1.com</td>
-            </tr>
-            <tr>
-                <td>Completed2</td>
-                <td>User2</td>
-                <td>Completed2@user2.com</td>
-            </tr>
-            <tr>
-                <td>Completed3</td>
-                <td>User3</td>
-                <td>Completed3@user3.com</td>
+            <tr *ngFor='let trainee of trainees'>
+                <td>{{trainee.psno}}</td>
+                <td>{{trainee.first_name}} , {{trainee.last_name}} ({{trainee.opco}})</td>
+                <td>100%</td>
+                <td>{{trainee.target_date | date : 'mediumDate'}}</td>
             </tr>
         </tbody>
     </table>
 </div>
-<div *ngIf="tab=='abandoned'">
-    <br><br> Unfortunate users who abondoned the training in between!!!
+<div *ngIf="tab=='c'">
     <br><br>
     <table class="table table-condensed table-striped fixed">
         <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
+                <th>PS#</th>
+                <th>Name</th>
+                <th>Completion Date</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Abandoned1</td>
-                <td>User1</td>
-                <td>Abandoned1@user1.com</td>
+            <tr *ngFor='let trainee of trainees'>
+                <td>{{trainee.psno}}</td>
+                <td>{{trainee.first_name}} , {{trainee.last_name}} ({{trainee.opco}})</td>
+                <td>{{trainee.status_date | date : 'mediumDate'}}</td>
             </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="tab=='p'">
+    <br><br>
+    <table class="table table-condensed table-striped fixed">
+        <thead>
             <tr>
-                <td>Abandoned2</td>
-                <td>User2</td>
-                <td>Abandoned2@user2.com</td>
+                <th>PS#</th>
+                <th>Name</th>
+                <th>% Completion</th>
+                <th>Abandon Date</th>
             </tr>
-            <tr>
-                <td>Abandoned3</td>
-                <td>User3</td>
-                <td>Abandoned3@user3.com</td>
+        </thead>
+        <tbody>
+            <tr *ngFor='let trainee of trainees'>
+                <td>{{trainee.psno}}</td>
+                <td>{{trainee.first_name}} , {{trainee.last_name}} ({{trainee.opco}})</td>
+                <td>73%</td>
+                <td>{{trainee.status_date | date : 'mediumDate'}}</td>
             </tr>
         </tbody>
     </table>

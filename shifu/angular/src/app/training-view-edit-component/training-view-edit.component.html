@@ -1,6 +1,6 @@
 <div class='panel panel-primary' *ngIf='training'>
     <div class=' panel-heading ' style='font-size:large '>
-        {{pageTitle + training.tname}}
+        {{pageTitle + ' : '+ training.tname}}
     </div>
 
     <div class='panel-body '>
@@ -41,9 +41,9 @@
                     <div class='col-md-8'>
                         <br><br><br>
                         <ul class="nav nav-tabs">
-                            <li [class]='active'><a (click)="onTabClick('active')">Active</a></li>
-                            <li [class]='completed '><a (click)="onTabClick('completed')">Completed</a></li>
-                            <li [class]='abandoned '><a (click)="onTabClick('abandoned')">Abandoned</a></li>
+                            <li [class]='active'><a (click)=" onTabClick( ' active ') ">Active</a></li>
+                            <li [class]='completed '><a (click)="onTabClick( 'completed ') ">Completed</a></li>
+                            <li [class]='abandoned '><a (click)="onTabClick( 'abandoned ') ">Abandoned</a></li>
                         </ul>
                         <div class=' container '>
                             <router-outlet></router-outlet>

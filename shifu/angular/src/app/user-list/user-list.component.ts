@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TraineeService } from './trainee.service';
+import { ITrainee } from "app/user-list/trainee";
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -7,23 +9,29 @@ import { Router,ActivatedRoute } from '@angular/router';
 })
 export class UserListComponent implements OnInit {
 
-  tab: string;
-  id:string;
-  constructor(private router:Router,private route: ActivatedRoute) {
+  trainingDetails:string[];
+  tab:string;
+  trainees:ITrainee[];
+  errorMessage: string;
 
-    this.route.params.subscribe(params => {
-       this.id = params['id'];
-    });
+  constructor(private router: Router, private route: ActivatedRoute,private _traineeService:TraineeService) {
+    
+    this.trainingDetails = this.router.url.split('/');
+    
+    if (this.router.url.indexOf('active') !== -1) {
+      this.tab = 'a';
+    }
+    else if (this.router.url.indexOf('completed') !== -1) {
+      this.tab = 'c';
+    }
+    else {
+      this.tab = 'p';
+    }
 
-   if(this.router.url.indexOf('active')!== -1){
-     this.tab='active';
-   }
-   else if (this.router.url.indexOf('completed')!== -1){
-     this.tab='completed';
-   }
-   else{
-      this.tab='abandoned';
-   }
+    this._traineeService.getTrainees(this.trainingDetails[2],this.tab).subscribe(trainees => this.trainees = trainees,
+      error => this.errorMessage = <any>error);
+
+    console.log('UserListComponent constructore called successfully');
   }
 
   ngOnInit() {
