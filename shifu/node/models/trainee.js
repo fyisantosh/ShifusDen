@@ -4,14 +4,13 @@ var Schema = mongoose.Schema;
 if (mongoose.connection.readyState == 0)
   mongoose.connect('mongodb://localhost/shifudb');
 
-var traineeSchema = new Schema({
+var traineeSchema = Schema({
   _id: Number,
-  name: { first: String, last: String },
   opco: String,
+  name: { first: String, last: String },
   email: String,
   phone: String
 });
-
 var trainee = mongoose.model('trainee', traineeSchema, 'trainee');
 
 module.exports = trainee;

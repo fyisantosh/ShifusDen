@@ -24,10 +24,12 @@ var trainingDAO = {
 
     getById: function (req, res) {
         console.log("Getting training details " + req.params['id']);
-        training.find({ '_id': req.params['id'] }, { 'tname': 1, 'status': 1, 'duration': 1, 'mode': 1, 'desc': 1 }, function (err, ts1) {
-            if (err) throw err;
-            res.send(ts1);
-        });
+        training.find({ '_id': req.params['id'] })
+            .populate('trainees.psno')
+            .exec(function (err, ts1) {
+                if (err) throw err;
+                res.send(ts1);
+            });
     },
 
     getTraineesByStatus: function (req, res) {
