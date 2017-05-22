@@ -4,7 +4,7 @@ import {ITraining} from '../trainings-component/training';
 @Pipe({
     name: 'trainingFilter'
 })
-export class ProductFilterPipe implements PipeTransform {
+export class TrainingFilterPipe implements PipeTransform {
 
     transform(value: ITraining[], filterBy: string): ITraining[] {
         console.log(filterBy);

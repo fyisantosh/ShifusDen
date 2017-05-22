@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { TrainingsComponent } from './trainings-component/trainings-component.component';
-import { ProductFilterPipe } from './trainings-component/training-filter.pipe';
+import { TrainingFilterPipe } from './trainings-component/training-filter.pipe';
 import { TrainingService } from './trainings-component/training.service';
 import { TrainingsStarRatingComponent } from './training-widget-component/trainings-star-rating.component';
 import { RouterModule, PreloadAllModules } from '@angular/router';
@@ -15,17 +15,19 @@ import { TrainingViewEditComponent } from './training-view-edit-component/traini
 import { TRAINING_ROUTE } from './training-view-edit-component/training-routes';
 import { UserListComponent } from './user-list/user-list.component';
 import { TraineeService } from './user-list/trainee.service';
+import {TraineeFilterPipe} from './user-list/trainee-filter.pipe';
 @NgModule({
   declarations: [
     AppComponent,
     TrainingsComponent,
-    ProductFilterPipe,
+    TrainingFilterPipe,
     TrainingsStarRatingComponent,
     WelcomeComponent,
     AboutUSComponent,
     TrainingAdditionComponent,
     TrainingViewEditComponent,
-    UserListComponent
+    UserListComponent,
+    TraineeFilterPipe
   ],
   imports: [
     BrowserModule,
