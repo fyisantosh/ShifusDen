@@ -7,7 +7,7 @@ import { TrainingsComponent } from './trainings-component/trainings-component.co
 import { TrainingFilterPipe } from './trainings-component/training-filter.pipe';
 import { TrainingService } from './trainings-component/training.service';
 import { TrainingsStarRatingComponent } from './training-widget-component/trainings-star-rating.component';
-import { RouterModule, PreloadAllModules } from '@angular/router';
+import { RouterModule} from '@angular/router';
 import { WelcomeComponent } from './welcome-component.component';
 import { AboutUSComponent } from './about-us.component';
 import { TrainingAdditionComponent } from './training-addition-component/training-addition-component.component';
