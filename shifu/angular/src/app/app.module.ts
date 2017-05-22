@@ -40,7 +40,7 @@ import {TraineeFilterPipe} from './user-list/trainee-filter.pipe';
        { path: 'showtraining/:id', component: TrainingViewEditComponent,children:TRAINING_ROUTE  },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
-    ],{preloadingStrategy: PreloadAllModules})
+    ])
   ],
   providers: [TrainingService,TraineeService],
   bootstrap: [AppComponent]
