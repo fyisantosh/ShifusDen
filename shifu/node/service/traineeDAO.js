@@ -2,11 +2,17 @@ var trainee = require('./../models/trainee');
 
 var traineeDAO = {
     getAll: function (req, res) {
-        var query = trainee.find({});
+        q = req.query.q || '';
+        var query = trainee.find(
+            {
+                $or: [
+                    { 'name.first': { '$regex': q, '$options': 'i' } },
+                    { 'name.last': { '$regex': q, '$options': 'i' } }]
+            }
+        );
 
         query.exec(function (err, ts) {
             if (err) throw err;
-            console.log(ts.length);
             res.send(ts);
         });
     },
