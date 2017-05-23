@@ -2,60 +2,39 @@
     <div class='panel-heading' style='font-size:large'>
         {{pageTitle}}
     </div>
-
-    <div class='panel-body'>
-        <div class='row row-grid'>
-            <div class='col-md-6'>
-                <div class='row row-grid'>
-                    <div class='col-md-3'>Name:</div>
-                    <div class='col-md-6'><input [(ngModel)]='test' /></div>
-                </div>
-                <div class='row row-grid'>
-                    <div class='col-md-3'>Code:</div>
-                    <div class='col-md-6'><input type='text' /></div>
-                </div>
-                <div class='row row-grid'>
-                    <div class='col-md-3'>Nature:</div>
-                    <div class='col-md-6'><input type='text' /></div>
-                </div>
-                <div class='row row-grid'>
-                    <div class='col-md-3'>Description:</div>
-                    <div class='col-md-6'><input type='text' /></div>
-                </div>
-                <div class='row row-grid'>
-                    <div class='col-md-3'>Duration:</div>
-                    <div class='col-md-6'><input type='text' /> Hours</div>
-                </div>
-                <div class='row row-grid'>
-                    <div class='col-md-3'>Training Image URL:</div>
-                    <div class='col-md-6'>
-                        <input type='text' ng-model="imgURL" />
-                    </div>
-                    <div class=' col-md-6 '>
-                        <img class='center-block img-responsive ' [style.width.px]='200 ' [style.margin.px]='2 '>
-                    </div>
-                </div>
-
-
-                <div class='row row-grid'>
-                    <div class='col-md-2'>
-                        <button type="button" [routerLink]="['/addtraining']" class="btn btn-primary">Clear</button>
-                    </div>
-                    <div class=' col-md-2'>
-                        <button type="button" [routerLink]="['/addtraining']" class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-
+    <form>
+        <div class='panel-body'>
+            <div class="form-group">
+                <label for="tname">Name</label>
+                <input id="tname" class="form-control" placeholder="Enter Training's' Name" aria-describedby="tnameHelp">
+                <small id="tnameHelp" class="form-text text-muted">This name will uniquely identify the training from the list of all the trainings.</small>
             </div>
-            <div class='col-md-6 '>
-                <img class='center-block img-responsive ' [style.width.px]='200 ' [style.margin.px]='2 ' [style.height.px]='200 ' src="imgURL" [title]='Test ' onError="this.src='http://iimbg.ac.in/sites/all/themes/iimc/images/no-image.jpg'" />
+
+            <div class="form-group">
+                <label for="tcd">Code</label>
+                <input id="tcd" class="form-control" placeholder="Enter Training's code" aria-describedby="tcdHelp">
+                <small id="tcdHelp" class="form-text text-muted">This will be fixed length predefined literals to identify and classify trainings.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="tmode">Mode</label>
+                <input id="tmode" class="form-control" placeholder="Enter Training's mode" aria-describedby="tmodeHelp">
+                <small id="tmodeHelp" class="form-text text-muted">It describes the medium with which the training will be imparted to all the users like using online videos, professional trainer, recorded sessions etc.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="tdesc">Description</label>
+                <textarea class="form-control" id="tdesc" rows="3" placeholder="Enter Training's description"></textarea>
             </div>
         </div>
-    </div>
 
+
+    </form>
+</div>
+<!-- 
     <div class='panel-footer '>
         <a class='btn btn-default ' (click)='onBack() ' style='width:80px '>
             <i class='glyphicon glyphicon-chevron-left '></i> Back
         </a>
-    </div>
-</div>
+    </div> 
+    -->

@@ -14,6 +14,7 @@ export class UserListComponent implements OnInit {
   trainees: ITrainee[];
   errorMessage: string;
   userFilter: string;
+  showDialog = false;
 
   constructor(private router: Router, private route: ActivatedRoute, private _traineeService: TraineeService) {
 

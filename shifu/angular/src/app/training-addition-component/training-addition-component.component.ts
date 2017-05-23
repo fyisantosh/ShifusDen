@@ -11,18 +11,18 @@ export class TrainingAdditionComponent implements OnInit, OnChanges {
   pageTitle :string ='Add new training';
   imgURL:string;
   constructor(private route: ActivatedRoute, private _router: Router) { }
-  @Input() test :string ="initial";
+  @Input() test :string;
   ngOnInit() {
   }
 
  ngOnChanges() {
-   //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-   //Add 'implements OnChanges' to the class.
    alert('something changed!');
  }
 
+/*
  onBack(){
     this._router.navigate(['/welcome']);
   }
+*/
 
 }

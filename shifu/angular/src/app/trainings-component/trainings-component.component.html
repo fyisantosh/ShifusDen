@@ -18,7 +18,11 @@
                 <!-- <button type="button" class="btn btn-primary btn-sm" (click)='search()'>Search</button> -->
             </div>
             <div class='col-md-6'>
-                <button type="button" [routerLink]="['/addtraining']" class="btn btn-primary pull-right">+ Add Training</button>
+                <button type="button" (click)="showDialog = !showDialog" class="btn btn-primary pull-right">+ Add Training</button>
+                <app-dialog [(visible)]="showDialog">
+                    <app-training-addition-component></app-training-addition-component>
+                    <button (click)="showDialog = !showDialog" class="btn">Close</button>
+                </app-dialog>
             </div>
         </div>
         <div class='row' *ngIf='listFilter'>

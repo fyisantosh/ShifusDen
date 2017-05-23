@@ -16,6 +16,10 @@ import { TRAINING_ROUTE } from './training-view-edit-component/training-routes';
 import { UserListComponent } from './user-list/user-list.component';
 import { TraineeService } from './user-list/trainee.service';
 import {TraineeFilterPipe} from './user-list/trainee-filter.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogComponent } from "app/training-widget-component/dialog-component";
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,12 +31,14 @@ import {TraineeFilterPipe} from './user-list/trainee-filter.pipe';
     TrainingAdditionComponent,
     TrainingViewEditComponent,
     UserListComponent,
-    TraineeFilterPipe
+    TraineeFilterPipe,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: 'welcome', component: TrainingsComponent },
       { path: 'aboutUs', component: AboutUSComponent },
