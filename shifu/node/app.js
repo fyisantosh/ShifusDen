@@ -41,6 +41,11 @@ app.route('/trainees')
         traineeDAO.getAll(req, res);
     });
 
+app.route('/traineesWithActiveTraining')
+    .get(function (req, res) {
+        traineeDAO.getAllWithActiveTraining(req, res);
+    });    
+
 app.route('/trainee/:id')
     .get(function (req, res) {
         res.send("Function unavailable")
