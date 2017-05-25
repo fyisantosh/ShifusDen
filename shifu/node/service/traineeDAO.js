@@ -1,5 +1,8 @@
 var trainee = require('./../models/trainee');
 
+var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+
 var traineeDAO = {
     getAll: function (req, res) {
         q = req.query.q || '';
@@ -7,7 +10,8 @@ var traineeDAO = {
             {
                 $or: [
                     { 'name.first': { '$regex': q, '$options': 'i' } },
-                    { 'name.last': { '$regex': q, '$options': 'i' } }]
+                    { 'name.last': { '$regex': q, '$options': 'i' } },
+                    { '_id': { '$regex': q, '$options': 'i' } }]
             }
         );
 
@@ -22,7 +26,7 @@ var traineeDAO = {
             if (err) throw err;
             res.send(ts);
         });
-    }
+    },
 }
 
 module.exports = traineeDAO;

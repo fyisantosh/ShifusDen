@@ -98,8 +98,23 @@ db.trainings.aggregate(
 ).pretty()
 
 db.trainings.findAndModify({
-    query: { "_id": "5913b4e510adad41cc4216d1", "trainees.psno" : 721424 },
-    update: { $set: {"trainees.$.status": "n" } }
+    query: { "_id": "5913b4e510adad41cc4216d1", "trainees.psno": 721424 },
+    update: { $set: { "trainees.$.status": "n" } }
 })
 
 db.trainings.find({ status: true, trainees: { $gt: { $size: 0 } } }, { tname: 1 })
+
+db.trainee.aggregate(
+    [
+        { $match: { 'name.first': { '$regex': 'han', '$options': 'i' } } },
+        {
+            $lookup:
+            {
+                from: "trainings",
+                localField: "_id",
+                foreignField: "trainings.trainees.psno",
+                as: "trainee.training"
+            }
+        }
+    ]
+);

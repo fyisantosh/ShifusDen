@@ -1,6 +1,6 @@
 var express = require("express");
 var cors = require('cors');
-var trainingsDAO = require("./service/trainingsDAO");
+var trainingDAO = require("./service/trainingDAO");
 var traineeDAO = require("./service/traineeDAO");
 
 
@@ -11,12 +11,12 @@ app.use(cors());
 
 app.route('/trainings')
     .get(function (req, res) {
-        trainingsDAO.getAll(req, res);
+        trainingDAO.getAll(req, res);
     });
 
 app.route('/training/:id')
     .get(function (req, res) {
-        trainingsDAO.getById(req, res);
+        trainingDAO.getById(req, res);
     })
     .post(function (req, res) {
         res.send("Function unavailable")
@@ -27,7 +27,7 @@ app.route('/training/:id')
 
 app.route('/training/:id/trainees')
     .get(function (req, res) {
-        trainingsDAO.getTraineesByStatus(req, res);
+        trainingDAO.getTraineesByStatus(req, res);
     })
     .post(function (req, res) {
         res.send("Function unavailable")

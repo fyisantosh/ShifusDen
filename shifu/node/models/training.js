@@ -5,18 +5,18 @@ var Schema = mongoose.Schema;
 if (mongoose.connection.readyState == 0)
   mongoose.connect('mongodb://localhost/shifudb');
 
-var trainingsSchema = Schema({
+var trainingSchema = Schema({
   _id: String,
   tname: String,
   status: Boolean,
   duration: Number,
   mode: String,
   desc: String,
-  trainees: [{ psno: { type: Number, ref: 'trainee' }, status: String, satus_date: Date, target_date: Date }]
+  trainees: [{ psno: { type: String, ref: 'trainee' }, status: String, satus_date: Date, target_date: Date }]
 
 });
 
-var trainings = mongoose.model('trainings', trainingsSchema, 'trainings');
+var training = mongoose.model('training', trainingSchema, 'training');
 
 
-module.exports = trainings;
+module.exports = training;

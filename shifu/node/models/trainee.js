@@ -5,7 +5,7 @@ if (mongoose.connection.readyState == 0)
   mongoose.connect('mongodb://localhost/shifudb');
 
 var traineeSchema = Schema({
-  _id: Number,
+  _id: String,
   opco: String,
   name: { first: String, last: String },
   email: String,
