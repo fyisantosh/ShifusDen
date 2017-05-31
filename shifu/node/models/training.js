@@ -12,9 +12,9 @@ var trainingSchema = Schema({
   duration: Number,
   mode: String,
   desc: String,
-  trainees: [{ psno: { type: String, ref: 'trainee' }, status: String, satus_date: Date, target_date: Date }]
+  trainees: [{_id:false, psno: { type: String, ref: 'trainee' }, status: String, status_date: Date, target_date: Date }]
 
-});
+}, { versionKey: false });
 
 var training = mongoose.model('training', trainingSchema, 'training');
 

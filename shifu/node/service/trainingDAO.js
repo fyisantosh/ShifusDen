@@ -1,5 +1,6 @@
 var training = require('./../models/training');
 var trainee = require('./../models/trainee');
+var mongoose = require('mongoose');
 
 var trainingDAO = {
     getAll: function (req, res) {
@@ -69,33 +70,22 @@ var trainingDAO = {
 
     addTraineesForTraining: function (req, res) {
         var idsToAdd = req.body.psnos;
-        var strIdsToAdd = [];
 
-        idsToAdd.forEach(function (psno) {
-            //strIdToAdd = { "psno": psno, "status": "p", "status_date": req.body.status_date, "target_date": req.body.target_date }
-            strIdToAdd = { "psno": psno, "status": "p"}
-            strIdsToAdd.push(strIdToAdd);
-        }, this);
+        training.findById(
+            { "_id": req.params['id'] })
+            .exec(function (err, t) {
+                if (err) throw err;
+                idsToAdd.forEach(function (psno) {
+                    strIdToAdd = { "psno": psno, "status": "p",  "target_date": req.body.target_date, "status_date": req.body.status_date }                    
+                    t.trainees.push(strIdToAdd);
+                }, this);
 
-        var opts = { runValidators: true };
-        console.log(strIdsToAdd);
-        
-        training.update(
-            { "_id": req.params['id'] },
-            {
-                $push: {
-                    "trainees": {
-                        $each: idsToAdd
-                    }
-                }
-            }
-        ).exec(opts,function(err, results){
-            if (err) throw err;
-            console.log(results);
-            res.send(results);
-        });
+                t.save(function (err, result) {
+                    if (err) res.send(false);
+                    res.send(true);
+                });
 
-        res.send("Method in progress");
+            });
     }
 }
 

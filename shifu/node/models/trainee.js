@@ -10,7 +10,7 @@ var traineeSchema = Schema({
   name: { first: String, last: String },
   email: String,
   phone: String
-});
+}, { versionKey: false });
 var trainee = mongoose.model('trainee', traineeSchema, 'trainee');
 
 module.exports = trainee;

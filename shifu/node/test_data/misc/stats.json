@@ -1,0 +1,38 @@
+{
+    "_id": "gdjagd878757d57",
+    "t": 50,
+    "p": 12,
+    "c": 23,
+    "a": 12
+}
+
+db.training.aggregate([
+    {
+        "$match": {
+            "_id": "5913b4e510adad41cc4216d1"
+        }
+    },
+    {
+        "$unwind": "$trainees"
+    },
+    {
+        "$group": {
+            "_id": "$trainees.status",
+            "crowd": {
+                "$sum": 1
+            }
+        }
+    },
+    {
+        "$group": {
+            "_id": null,
+            "stats": {
+                "$push": {
+                    "status": "$_id",
+                    "count": "$crowd"
+                }
+            }
+        }
+    }
+]
+)
