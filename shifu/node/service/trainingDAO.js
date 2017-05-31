@@ -18,13 +18,11 @@ var trainingDAO = {
 
         query.exec(function (err, ts1) {
             if (err) throw err;
-            console.log(ts1.length);
             res.send(ts1);
         });
     },
 
     getById: function (req, res) {
-        console.log("Getting training details " + req.params['id']);
         training.find({ '_id': req.params['id'] })
             .populate('trainees.psno')
             .exec(function (err, ts1) {
