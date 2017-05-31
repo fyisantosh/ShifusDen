@@ -74,7 +74,7 @@ var trainingDAO = {
             .exec(function (err, t) {
                 if (err) throw err;
                 idsToAdd.forEach(function (psno) {
-                    strIdToAdd = { "psno": psno, "status": "p",  "target_date": req.body.target_date, "status_date": req.body.status_date }                    
+                    strIdToAdd = { "psno": psno, "status": "p", "target_date": req.body.target_date, "status_date": req.body.status_date }
                     t.trainees.push(strIdToAdd);
                 }, this);
 
@@ -84,6 +84,14 @@ var trainingDAO = {
                 });
 
             });
+    },
+
+    updateTraineesForTrainingCompleted: function (req, res) {
+        res.send("Method Under Implementation");
+    },
+
+    updateTraineesForTrainingAbandoned: function (req, res) {
+        res.send("Method Under Implementation");
     }
 }
 

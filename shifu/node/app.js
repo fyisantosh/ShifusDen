@@ -33,8 +33,20 @@ app.route('/training/:id/trainees')
     .post(function (req, res) {
         res.send("Function unavailable");
     })
-    .put(jsonParser,function (req, res) {
-        trainingDAO.addTraineesForTraining(req,res);
+    .put(jsonParser, function (req, res) {
+        switch (req.query.a) {
+            case 'p':
+                trainingDAO.addTraineesForTraining(req, res);
+                break;
+            case 'c':
+                trainingDAO.updateTraineesForTrainingCompleted(req, res);
+                break;
+            case 'a':
+                trainingDAO.updateTraineesForTrainingAbandoned(req, res);
+                break;
+            default:
+                res.send("Unknown operation");
+        }
     });
 
 app.route('/trainees')
