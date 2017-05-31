@@ -1,9 +1,10 @@
 var express = require("express");
 var cors = require('cors');
+var bodyParser = require('body-parser')
 var trainingDAO = require("./service/trainingDAO");
 var traineeDAO = require("./service/traineeDAO");
 
-
+var jsonParser = bodyParser.json()
 
 app = new express();
 app.use(cors());
@@ -19,10 +20,10 @@ app.route('/training/:id')
         trainingDAO.getById(req, res);
     })
     .post(function (req, res) {
-        res.send("Function unavailable")
+        res.send("Function unavailable");
     })
     .put(function (req, res) {
-        res.send("Function unavailable")
+        res.send("Function unavailable");
     });
 
 app.route('/training/:id/trainees')
@@ -30,10 +31,10 @@ app.route('/training/:id/trainees')
         trainingDAO.getTraineesByStatus(req, res);
     })
     .post(function (req, res) {
-        res.send("Function unavailable")
+        res.send("Function unavailable");
     })
-    .put(function (req, res) {
-        res.send("Function unavailable")
+    .put(jsonParser,function (req, res) {
+        trainingDAO.addTraineesForTraining(req,res);
     });
 
 app.route('/trainees')
@@ -43,13 +44,13 @@ app.route('/trainees')
 
 app.route('/trainee/:id')
     .get(function (req, res) {
-        res.send("Function unavailable")
+        res.send("Function unavailable");
     })
     .post(function (req, res) {
-        res.send("Function unavailable")
+        res.send("Function unavailable");
     })
     .put(function (req, res) {
-        res.send("Function unavailable")
+        res.send("Function unavailable");
     });
 
 app.get("/s", function (req, res) {

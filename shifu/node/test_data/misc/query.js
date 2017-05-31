@@ -1,4 +1,4 @@
-db.trainings.update(
+db.training.update(
     { "_id": "5913b4e5b19aa2630157d507" },
     {
         $push: {
@@ -46,12 +46,12 @@ db.trainings.update(
 )
 
 
-db.trainings.find(
+db.training.find(
     { "_id": "5913b4e510adad41cc4216d1" },
     { "trainees": { $elemMatch: { "status": "c" } } }
 )
 
-db.trainings.aggregate([
+db.training.aggregate([
     { $match: { "_id": "5913b4e510adad41cc4216d1" } },
     {
         $project: {
@@ -67,7 +67,7 @@ db.trainings.aggregate([
     }
 ])
 
-db.trainings.aggregate(
+db.training.aggregate(
     [
         { $match: { "_id": "5913b4e510adad41cc4216d1" } },
         { $unwind: "$trainees" },
@@ -97,12 +97,18 @@ db.trainings.aggregate(
     ]
 ).pretty()
 
-db.trainings.findAndModify({
+db.training.findAndModify({
     query: { "_id": "5913b4e510adad41cc4216d1", "trainees.psno": 721424 },
     update: { $set: { "trainees.$.status": "n" } }
 })
 
-db.trainings.find({ status: true, trainees: { $gt: { $size: 0 } } }, { tname: 1 })
+
+db.training.findAndModify({
+    query: { "_id": "5913b4e510adad41cc4216d1", "trainees.psno": 721424 },
+    update: { $set: { "trainees.$.status": "n" } }
+})
+
+db.training.find({ status: true, trainees: { $gt: { $size: 0 } } }, { tname: 1 })
 
 db.trainee.aggregate(
     [
@@ -110,9 +116,9 @@ db.trainee.aggregate(
         {
             $lookup:
             {
-                from: "trainings",
+                from: "training",
                 localField: "_id",
-                foreignField: "trainings.trainees.psno",
+                foreignField: "training.trainees.psno",
                 as: "trainee.training"
             }
         }

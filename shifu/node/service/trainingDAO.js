@@ -65,6 +65,37 @@ var trainingDAO = {
             if (err) throw err;
             res.send(ts);
         });
+    },
+
+    addTraineesForTraining: function (req, res) {
+        var idsToAdd = req.body.psnos;
+        var strIdsToAdd = [];
+
+        idsToAdd.forEach(function (psno) {
+            //strIdToAdd = { "psno": psno, "status": "p", "status_date": req.body.status_date, "target_date": req.body.target_date }
+            strIdToAdd = { "psno": psno, "status": "p"}
+            strIdsToAdd.push(strIdToAdd);
+        }, this);
+
+        var opts = { runValidators: true };
+        console.log(strIdsToAdd);
+        
+        training.update(
+            { "_id": req.params['id'] },
+            {
+                $push: {
+                    "trainees": {
+                        $each: idsToAdd
+                    }
+                }
+            }
+        ).exec(opts,function(err, results){
+            if (err) throw err;
+            console.log(results);
+            res.send(results);
+        });
+
+        res.send("Method in progress");
     }
 }
 
