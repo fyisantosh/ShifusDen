@@ -4,22 +4,26 @@ var training = require('./../models/training');
 var mongoose = require('mongoose');
 var async = require("async");
 
-
 var traineeDAO = {
     getAll: function (req, res) {
         f = req.query.f || ''; //Only first name
         l = req.query.l || ''; //Only last name
-        p = req.query.p || ''; //Only first name
+        ps = req.query.ps || ''; //Only first name
         wt = req.query.wt || 0; //With training details, if 1
+        n = req.query.n || 10;
+        p = req.query.p || 0;
+        p = parseInt(n) * parseInt(p);
 
         var query = trainee.find(
             {
                 $and: [
                     { 'name.first': { '$regex': f, '$options': 'i' } },
                     { 'name.last': { '$regex': l, '$options': 'i' } },
-                    { '_id': { '$regex': p, '$options': 'i' } }]
+                    { '_id': { '$regex': ps, '$options': 'i' } }]
             }
-        );
+        )
+            .limit(parseInt(n))
+            .skip(parseInt(p));
 
         if (wt == 1) {
             query.lean().exec(function (err, t1) {
