@@ -34,7 +34,7 @@ app.route('/training/:id/trainees')
         res.send("Function unavailable");
     })
     .put(jsonParser, function (req, res) {
-        switch (req.query.a) {
+        switch (req.body.a) {
             case 'p':
                 trainingDAO.addTraineesForTraining(req, res);
                 break;
