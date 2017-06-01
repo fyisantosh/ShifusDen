@@ -74,7 +74,14 @@ var trainingDAO = {
             .exec(function (err, t) {
                 if (err) throw err;
                 idsToAdd.forEach(function (psno) {
-                    strIdToAdd = { "psno": psno, "status": "p", "target_date": req.body.target_date, "status_date": req.body.status_date }
+                    strIdToAdd = {
+                        "psno": psno,
+                        "status": "p",
+                        "target_date": req.body.target_date,
+                        "status_date": req.body.status_date,
+                        "pcomplete": 0,
+                        "assessment": false
+                    }
                     t.trainees.push(strIdToAdd);
                 }, this);
 
@@ -87,11 +94,46 @@ var trainingDAO = {
     },
 
     updateTraineesForTrainingCompleted: function (req, res) {
-        res.send("Method Under Implementation");
+        var idsToUpdate = req.body.psnos;
+        training.findById(
+            { "_id": req.params['id'] })
+            .exec(function (err, t) {
+                if (err) throw err;
+                t.trainees.forEach(function (tr) {
+                    if (idsToUpdate.includes(tr.psno)) {
+                        tr.status = 'c';
+                        tr.pcomplete = 100;
+                        tr.assessment = true;
+                    }
+                }, this);
+
+                t.save(function (err, result) {
+                    if (err) res.send(false);
+                    res.send(true);
+                });
+
+            });
     },
 
     updateTraineesForTrainingAbandoned: function (req, res) {
-        res.send("Method Under Implementation");
+        var idsToUpdate = req.body.psnos;
+        training.findById(
+            { "_id": req.params['id'] })
+            .exec(function (err, t) {
+                if (err) throw err;
+                t.trainees.forEach(function (tr) {
+                    if (idsToUpdate.includes(tr.psno)) {
+                        tr.status = 'a';
+                        tr.assessment = false;
+                    }
+                }, this);
+
+                t.save(function (err, result) {
+                    if (err) res.send(false);
+                    res.send(true);
+                });
+
+            });
     }
 }
 

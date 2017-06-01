@@ -12,7 +12,15 @@ var trainingSchema = Schema({
   duration: Number,
   mode: String,
   desc: String,
-  trainees: [{_id:false, psno: { type: String, ref: 'trainee' }, status: String, status_date: Date, target_date: Date }]
+  trainees: [{
+    _id: false,
+    psno: { type: String, ref: 'trainee' },
+    status: String,
+    status_date: Date,
+    target_date: Date,
+    pcomplete: Number,
+    assessment: Boolean
+  }]
 
 }, { versionKey: false });
 

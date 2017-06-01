@@ -98,8 +98,8 @@ db.training.aggregate(
 ).pretty()
 
 db.training.findAndModify({
-    query: { "_id": "5913b4e510adad41cc4216d1", "trainees.psno": 721424 },
-    update: { $set: { "trainees.$.status": "n" } }
+    query: { "_id": "5913b4e5079caaa510eddf55", "trainees.psno": {$in:["721423","721417","721410"] }},
+    update: { $set: { "trainees.[].status": "n" } }
 })
 
 
