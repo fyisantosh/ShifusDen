@@ -9,16 +9,20 @@ var traineeDAO = {
         f = req.query.f || ''; //Only first name
         l = req.query.l || ''; //Only last name
         ps = req.query.ps || ''; //Only first name
+        o = req.query.o || ''; //Only first name
         wt = req.query.wt || 0; //With training details, if 1
         n = req.query.n || 10;
         p = req.query.p || 0;
         p = parseInt(n) * parseInt(p);
 
+        console.log("f = " + f + " l = " + l + " ps = " + ps + " o = " + o);
+
         var query = trainee.find(
             {
-                $and: [
+                $or: [
                     { 'name.first': { '$regex': f, '$options': 'i' } },
                     { 'name.last': { '$regex': l, '$options': 'i' } },
+                    { 'opco': { '$regex': o, '$options': 'i' } },
                     { '_id': { '$regex': ps, '$options': 'i' } }]
             }
         )
