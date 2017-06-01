@@ -26,6 +26,11 @@ app.route('/training/:id')
         res.send("Function unavailable");
     });
 
+app.route('/training/:id/stats')
+    .get(function (req, res) {
+        trainingDAO.getTrainingStats(req, res);
+    });
+
 app.route('/training/:id/trainees')
     .get(function (req, res) {
         trainingDAO.getTraineesByStatus(req, res);

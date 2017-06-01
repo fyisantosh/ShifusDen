@@ -134,6 +134,48 @@ var trainingDAO = {
                 });
 
             });
+    },
+
+    getTrainingStats: function (req, res) {
+        var qryStats = training.aggregate([
+            {
+                "$match": {
+                    "_id": req.params['id']
+                }
+            },
+            {
+                "$unwind": "$trainees"
+            },
+            {
+                "$group": {
+                    "_id": "$trainees.status",
+                    "crowd": {
+                        "$sum": 1
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "stats": {
+                        "$push": {
+                            "status": "$_id",
+                            "count": "$crowd"
+                        }
+                    }
+                }
+            }
+        ]
+        );
+
+        qryStats.exec(function (err, st) {
+            if (err) res.send(false);
+            stats = st[0];
+            var qAll = trainee.find().count(function (err, c) {
+                stats.totalTrainees = c;
+                res.send(stats);
+            });
+        });
     }
 }
 
