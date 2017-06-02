@@ -61,13 +61,18 @@ app.route('/trainees')
 
 app.route('/trainee/:id')
     .get(function (req, res) {
-        res.send("Function unavailable");
+        traineeDAO.getById(req, res);
     })
     .post(function (req, res) {
         res.send("Function unavailable");
     })
     .put(function (req, res) {
         res.send("Function unavailable");
+    });
+
+app.route('/trainee/:id/stats')
+    .get(function (req, res) {
+        traineeDAO.getByIdWithStats(req, res);
     });
 
 app.get("/s", function (req, res) {

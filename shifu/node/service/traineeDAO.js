@@ -14,9 +14,6 @@ var traineeDAO = {
         n = req.query.n || 10;
         p = req.query.p || 0;
         p = parseInt(n) * parseInt(p);
-
-        console.log("f = " + f + " l = " + l + " ps = " + ps + " o = " + o);
-
         var query = trainee.find(
             {
                 $or: [
@@ -67,9 +64,35 @@ var traineeDAO = {
     },
 
     getById: function (req, res) {
-        trainee.find({ '_id': req.params['id'] }, function (err, ts) {
+        trainee.findOne({ '_id': req.params['id'] }, function (err, ts) {
             if (err) throw err;
             res.send(ts);
+        });
+    },
+
+    getByIdWithStats: function (req, res) {
+        var sqlTrainee = trainee.findOne({ '_id': req.params['id'] });
+        sqlTrainee.lean().exec(function (err, trn) {
+            if (err) throw err;
+            var qryStats = training.aggregate(
+                [
+                    { $unwind: "$trainees" },
+                    { $match: { "trainees.psno": "721425" } },
+                    {
+                        $project:
+                        {
+                            "tname": 1,
+                            "status": "$trainees.status"                            
+                        }
+                    },
+                    {$sort:{"status":1}}
+                ]
+            );
+            qryStats.exec(function(err, trStats){
+                if (err) throw err;
+                trn.stats=trStats;
+                res.send(trn);
+            });
         });
     }
 }
