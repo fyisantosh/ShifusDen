@@ -43,41 +43,45 @@ var traineeDAO = {
 
         //console.log(JSON.stringify(query._conditions));
 
-        if (wt == 1) {
-            query.lean().exec(function (err, t1) {
-                total_tn = t1.length - 1;
+        query.lean().exec(function (err, t1) {
 
-                async.whilst(
-                    function () {
-                        return total_tn >= 0;
-                    },
-                    function (callback) {
-                        curr_tn = t1[total_tn]._id;
-                        tr_q = training.findOne(
-                            { "trainees": { $elemMatch: { "status": "a", "psno": curr_tn } } },
-                            { "tname": 1, _id: 0 }
-                        );
+            if (typeof t1 !== 'undefined' && t1) {
+                if (wt == 1) {
+                    total_tn = t1.length - 1;
 
-                        tr_q.lean().exec(function (er, tg1) {
-                            if (tg1 != null) {
-                                t1[total_tn].active_training = tg1.tname;
-                            }
-                            total_tn--;
-                            callback(null, total_tn);
-                        });
-                    },
-                    function (err, n) {
-                        res.send(t1);
-                    }
-                );
+                    async.whilst(
+                        function () {
+                            return total_tn >= 0;
+                        },
+                        function (callback) {
+                            curr_tn = t1[total_tn]._id;
+                            tr_q = training.findOne(
+                                { "trainees": { $elemMatch: { "status": "a", "psno": curr_tn } } },
+                                { "tname": 1, _id: 0 }
+                            );
 
-            });
-        } else {
-            query.exec(function (err, ts) {
-                if (err) throw err;
-                res.send(ts);
-            });
-        }
+                            tr_q.lean().exec(function (er, tg1) {
+                                if (tg1 != null) {
+                                    t1[total_tn].active_training = tg1.tname;
+                                }
+                                total_tn--;
+                                callback(null, total_tn);
+                            });
+                        },
+                        function (err, n) {
+                            res.send(t1);
+                        }
+                    );
+                } else {
+                    query.exec(function (err, ts) {
+                        if (err) throw err;
+                        res.send(ts);
+                    });
+                }
+            } else {
+                res.send({});
+            }
+        });
     },
 
     getById: function (req, res) {
