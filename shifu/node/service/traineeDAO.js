@@ -6,6 +6,7 @@ var async = require("async");
 
 var traineeDAO = {
     getAll: function (req, res) {
+        t = req.query.t || 'f'; //Only first name
         f = req.query.f || ''; //Only first name
         l = req.query.l || ''; //Only last name
         ps = req.query.ps || ''; //Only first name
@@ -14,17 +15,33 @@ var traineeDAO = {
         n = req.query.n || 10;
         p = req.query.p || 0;
         p = parseInt(n) * parseInt(p);
-        var query = trainee.find(
-            {
-                $or: [
-                    { 'name.first': { '$regex': f, '$options': 'i' } },
-                    { 'name.last': { '$regex': l, '$options': 'i' } },
-                    { 'opco': { '$regex': o, '$options': 'i' } },
-                    { '_id': { '$regex': ps, '$options': 'i' } }]
-            }
-        )
-            .limit(parseInt(n))
-            .skip(parseInt(p));
+
+        console.log(" f = " + f + " l = " + l + " ps = " + ps + " o = " + o);
+        var conditions = [];
+        if (f != '') conditions.push({ 'name.first': { '$regex': f, '$options': 'i' } });
+        if (l != '') conditions.push({ 'name.last': { '$regex': l, '$options': 'i' } });
+        if (o != '') conditions.push({ 'opco': { '$regex': o, '$options': 'i' } });
+        if (ps != '') conditions.push({ '_id': { '$regex': ps, '$options': 'i' } });
+        console.log(conditions);
+
+        var query = null
+        if (t == 's') {
+            query = trainee.find(
+                {
+                    $and: conditions
+                }
+            )
+                .limit(parseInt(n))
+                .skip(parseInt(p));
+        } else {
+            query = trainee.find(
+                {
+                    $or: conditions
+                }
+            )
+        }
+
+        console.log(JSON.stringify(query._conditions));
 
         if (wt == 1) {
             query.lean().exec(function (err, t1) {
@@ -82,15 +99,15 @@ var traineeDAO = {
                         $project:
                         {
                             "tname": 1,
-                            "status": "$trainees.status"                            
+                            "status": "$trainees.status"
                         }
                     },
-                    {$sort:{"status":1}}
+                    { $sort: { "status": 1 } }
                 ]
             );
-            qryStats.exec(function(err, trStats){
+            qryStats.exec(function (err, trStats) {
                 if (err) throw err;
-                trn.stats=trStats;
+                trn.stats = trStats;
                 res.send(trn);
             });
         });
