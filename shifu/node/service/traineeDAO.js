@@ -16,13 +16,13 @@ var traineeDAO = {
         p = req.query.p || 0;
         p = parseInt(n) * parseInt(p);
 
-        console.log(" f = " + f + " l = " + l + " ps = " + ps + " o = " + o);
+        //console.log(" f = " + f + " l = " + l + " ps = " + ps + " o = " + o);
         var conditions = [];
         if (f != '') conditions.push({ 'name.first': { '$regex': f, '$options': 'i' } });
         if (l != '') conditions.push({ 'name.last': { '$regex': l, '$options': 'i' } });
         if (o != '') conditions.push({ 'opco': { '$regex': o, '$options': 'i' } });
         if (ps != '') conditions.push({ '_id': { '$regex': ps, '$options': 'i' } });
-        console.log(conditions);
+        //console.log(conditions);
 
         var query = null
         if (t == 's') {
@@ -41,7 +41,7 @@ var traineeDAO = {
             )
         }
 
-        console.log(JSON.stringify(query._conditions));
+        //console.log(JSON.stringify(query._conditions));
 
         if (wt == 1) {
             query.lean().exec(function (err, t1) {
