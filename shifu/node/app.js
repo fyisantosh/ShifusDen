@@ -3,6 +3,8 @@ var cors = require('cors');
 var bodyParser = require('body-parser')
 var trainingDAO = require("./service/trainingDAO");
 var traineeDAO = require("./service/traineeDAO");
+var statsDAO = require("./service/statsDAO");
+
 
 var jsonParser = bodyParser.json()
 
@@ -79,6 +81,30 @@ app.get("/s", function (req, res) {
     res.send(new Date());
 });
 
+app.route('/stats')
+    .get(function (req, res) {
+        statsDAO.getAllStats(req, res);
+    });
+
+app.route('/stats/training/:id')
+    .get(function (req, res) {
+        statsDAO.getStatsForTraining(req, res);
+    });
+
+app.route('/stats/training/:id/opco/:opco')
+    .get(function (req, res) {
+        statsDAO.getStatsForTrainingForOpco(req, res);
+    });
+
+app.route('/stats/opco/:opco')
+    .get(function (req, res) {
+        statsDAO.getStatsForOpco(req, res);
+    });
+
+app.route('/stats/opco/:opco/training/:id')
+    .get(function (req, res) {
+        statsDAO.getStatsForOpcoForTraining(req, res);
+    });    
 
 app.listen(3000, function () {
     console.log("app started");

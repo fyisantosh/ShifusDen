@@ -1,3 +1,26 @@
+
+/stats/Marsh /stats
+/stats/GuyCarp
+/stats/Mercer
+/stats
+
+
+http://localhost:3000/training/5913b4e5c67821c761c49c02/stats
+http://localhost:3000/training/5913b4e5c67821c761c49c02/stats/Marsh
+
+http://localhost:3000/opco/Marsh/stats
+http://localhost:3000/opco/Marsh/stats/5913b4e5c67821c761c49c02
+
+http://localhost:3000/stats
+http://localhost:3000/stats/training/5913b4e5c67821c761c49c02
+http://localhost:3000/stats/training/5913b4e5c67821c761c49c02/opco/Marsh
+http://localhost:3000/stats/opco/Marsh
+http://localhost:3000/stats/opco/Marsh/training/5913b4e5c67821c761c49c02
+http://localhost:3000/stats/trainee/721418
+
+
+
+
 {
     "opco": "marsh",
     "folks": 40,
@@ -37,7 +60,7 @@ db.training.aggregate([
         }
     },
     {
-        "$group": {
+        $group: {
             "_id": "$_id.opco",
             "stats": {
                 "$push": {
