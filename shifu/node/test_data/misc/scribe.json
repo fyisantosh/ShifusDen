@@ -1,0 +1,48 @@
+db.training.update({
+    "_id": "5913b4e5efa5319424c2d631"
+},
+{
+    "$addToSet": {
+        "trainees": {
+            "psno": "1071681",
+            "status": "a",
+            "target_date": "2016-05-18T16:00:00Z",
+            "status_date": "2016-05-18T16:00:00Z",
+            "pcomplete": 20,
+            "assessment": false
+        }
+    }
+});
+
+db.training.update({
+    "_id": "5913b4e5efa5319424c2d631"
+},
+{
+    "$addToSet": {
+        "trainees": {
+            "psno": "1017564",
+            "status": "a",
+            "target_date": "2016-05-18T16:00:00Z",
+            "status_date": "2016-05-18T16:00:00Z",
+            "pcomplete": 20,
+            "assessment": false
+        }
+    }
+});
+
+db.training.update({
+    "_id": "5913b4e5efa5319424c2d631"
+},
+{
+    "$addToSet": {
+        "trainees": {
+            "psno": "1007516",
+            "status": "a",
+            "target_date": "2016-05-18T16:00:00Z",
+            "status_date": "2016-05-18T16:00:00Z",
+            "pcomplete": 20,
+            "assessment": false
+        }
+    }
+});
+
