@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, AfterViewInit, AfterViewChecked, AfterContentInit } from '@angular/core';
+import { Component, OnInit,Output,EventEmitter, OnChanges, Input, AfterViewInit, AfterViewChecked, AfterContentInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ITraining } from '../trainings-component/training';
 import { TrainingService } from '../trainings-component/training.service';
@@ -16,6 +16,22 @@ export class TrainingViewEditComponent implements OnInit, AfterContentInit {
   abandoned: string;
   errorMessage: string;
   isTabCalled: boolean = false;
+  showDialog:boolean=false;
+  
+  //User assignment pop-up starts
+  @Input() closable = true;
+  @Input() visible: boolean=false;
+  @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  minHeight:string='10';
+  maxWidth:string='10';
+
+  close() {
+    this.visible = false;
+  }
+
+  open(){
+    this.visible = true;
+  }
 
   constructor(private _trainingService: TrainingService, private route: ActivatedRoute, private _router: Router) {
     console.log('TrainingViewEditComponent constructor called successfully!!!');
