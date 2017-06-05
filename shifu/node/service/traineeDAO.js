@@ -40,7 +40,7 @@ var traineeDAO = {
                     function (callback) {
                         curr_tn = t1[total_tn]._id;
                         tr_q = training.findOne(
-                            { "trainees": { $elemMatch: { "status": "a", "psno": curr_tn } } },
+                            { "trainees": { $elemMatch: { "status": "p", "psno": curr_tn } } },
                             { "tname": 1, _id: 0 }
                         );
 
