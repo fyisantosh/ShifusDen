@@ -43,21 +43,7 @@ var traineeDAO = {
 
         //console.log(JSON.stringify(query._conditions));
 
-<<<<<<< HEAD
-                async.whilst(
-                    function () {
-                        return total_tn >= 0;
-                    },
-                    function (callback) {
-                        curr_tn = t1[total_tn]._id;
-                        tr_q = training.findOne(
-                            { "trainees": { $elemMatch: { "status": "p", "psno": curr_tn } } },
-                            { "tname": 1, _id: 0 }
-                        );
-=======
         query.lean().exec(function (err, t1) {
->>>>>>> 86889afa32acfbea5f755f5f027300a00dffde0a
-
             if (typeof t1 !== 'undefined' && t1) {
                 if (wt == 1) {
                     total_tn = t1.length - 1;
