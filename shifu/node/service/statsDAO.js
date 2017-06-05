@@ -23,7 +23,7 @@ var statsDAO = {
             },
             {
                 $group: {
-                    "_id": { "opco": "$trainee_detail.opco", "status": "$trainees.status" },
+                    "_id": { "status": "$trainees.status" },
                     "crowd": {
                         "$sum": 1
                     }
@@ -31,7 +31,7 @@ var statsDAO = {
             },
             {
                 $group: {
-                    "_id": "$_id.opco",
+                    "_id": null,
                     "stats": {
                         "$push": {
                             "status": "$_id.status",
@@ -58,7 +58,8 @@ var statsDAO = {
                 $match: {
                     "_id": req.params['id']
                 }
-            }, {
+            },
+            {
                 $unwind: "$trainees"
             },
             {
@@ -74,7 +75,9 @@ var statsDAO = {
             },
             {
                 $group: {
-                    "_id": { "opco": "$trainee_detail.opco", "status": "$trainees.status" },
+                    "_id": {
+                        "status": "$trainees.status"
+                    },
                     "crowd": {
                         "$sum": 1
                     }
@@ -82,7 +85,7 @@ var statsDAO = {
             },
             {
                 $group: {
-                    "_id": "$_id.opco",
+                    "_id": null,
                     "stats": {
                         "$push": {
                             "status": "$_id.status",
@@ -95,8 +98,8 @@ var statsDAO = {
 
         qryStats.exec(function (err, st) {
             if (err) res.send(false);
-            stats = st[0];
-            var qAll = trainee.find({ "opco": req.params['opco'] }).count(function (err, c) {
+            stats = st[0] || {};
+            var qAll = trainee.find({}).count(function (err, c) {
                 stats.totalTrainees = c;
                 res.send(stats);
             });
@@ -109,7 +112,8 @@ var statsDAO = {
                 $match: {
                     "_id": req.params['id']
                 }
-            }, {
+            },
+            {
                 $unwind: "$trainees"
             },
             {
@@ -130,7 +134,9 @@ var statsDAO = {
             },
             {
                 $group: {
-                    "_id": { "opco": "$trainee_detail.opco", "status": "$trainees.status" },
+                    "_id": {
+                        "status": "$trainees.status"
+                    },
                     "crowd": {
                         "$sum": 1
                     }
@@ -138,7 +144,7 @@ var statsDAO = {
             },
             {
                 $group: {
-                    "_id": "$_id.opco",
+                    "_id": null,
                     "stats": {
                         "$push": {
                             "status": "$_id.status",
@@ -151,7 +157,7 @@ var statsDAO = {
 
         qryStats.exec(function (err, st) {
             if (err) res.send(false);
-            stats = st[0];
+            stats = st[0] || {};
             var qAll = trainee.find({ "opco": req.params['opco'] }).count(function (err, c) {
                 stats.totalTrainees = c;
                 res.send(stats);
@@ -203,7 +209,7 @@ var statsDAO = {
 
         qryStats.exec(function (err, st) {
             if (err) res.send(false);
-            stats = st[0];
+            stats = st[0] || {};
             var qAll = trainee.find({ "opco": req.params['opco'] }).count(function (err, c) {
                 stats.totalTrainees = c;
                 res.send(stats);
@@ -259,7 +265,7 @@ var statsDAO = {
 
         qryStats.exec(function (err, st) {
             if (err) res.send(false);
-            stats = st[0];
+            stats = st[0] || {};
             var qAll = trainee.find({ "opco": req.params['opco'] }).count(function (err, c) {
                 stats.totalTrainees = c;
                 res.send(stats);
