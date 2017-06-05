@@ -1,31 +1,5 @@
-table {
-    width: 100%;
-}
-
-.table-fixed {
-    width: 100%;
-}
-
-.table-fixed.tbody {
-    height: 50px;
-    overflow-y: auto;
-    width: 100%;
-}
-
-.table-fixed.thead,
-.table-fixed.tbody,
-.table-fixed.tr,
-.table-fixed.td,
-.table-fixed.th {
-    display: block;
-}
-
-.table-fixed.tbody.td {
-    float: left;
-}
-
-.table-fixed.thead.tr.th {
-    float: left;
+thead {
+    color: #337AB7
 }
 
 .overlay {
@@ -66,12 +40,6 @@ table {
     top: 8px;
     right: 8px;
     font-size: 1.2em;
-}
-
-.fixed-panel {
-    min-height: 10;
-    max-height: 50;
-    overflow-y: scroll;
 }
 
 .scrolling {

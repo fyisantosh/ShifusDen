@@ -3,6 +3,7 @@ import { TraineeService } from '../trainee.service';
 import { ITrainee } from "app/user-list/trainee";
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { ITrainingTrainee } from '../trainee-components/trainingTrainee';
 import { NgForm } from "@angular/forms";
 import * as moment from 'moment';
 
@@ -32,6 +33,7 @@ export class UserListComponent implements OnInit {
   showDialog: boolean = false;
   searchResult: ITrainee[];
   selectDateOpen: boolean = false;
+  selectedItems: any = [];
 
   //User assignment pop-up starts
   @Input() searchUserClosable = true;
@@ -114,8 +116,6 @@ export class UserListComponent implements OnInit {
     this.searchUsers(form.value.fname, form.value.lname, form.value.psno);
   }
 
-
-  //datepicker starts
   public onSelectionDone(a) {
     this.close();
   }
@@ -134,7 +134,6 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  //
   public dt: Date = new Date();
   public minDate: Date = void 0;
   public events: any[];
@@ -155,7 +154,6 @@ export class UserListComponent implements OnInit {
   }
 
   addMonths(months: number) {
-    //alert(months);
     this.dt.setMonth(this.dt.getMonth() + months);
   }
 
@@ -211,5 +209,35 @@ export class UserListComponent implements OnInit {
     this.closeSearchUserDialog();
     this.selectDateOpen = true;
   }
+
+  selectedValues(user, event) {
+
+        var index = this.selectedItems.indexOf(user._id);
+        if (event.target.checked) {
+            if (index === -1) {
+                this.selectedItems.push(user._id);
+            }
+        } else {
+            if (index !== -1) {
+                this.selectedItems.splice(index, 1);
+            }
+        }
+    }
+
+
+    assignUser2Training(){
+      alert('assignUser2Training');
+      alert('trainingId :'+this.trainingDetails[2]);
+      alert('Users PS nos :'+this.selectedItems)
+      alert('target date :'+ this.dt);
+      let traineeDetails: any={
+        trainingId:this.trainingDetails[2],
+        updatedStatus:'active',
+        psnos:this.selectedItems,
+        status_date:this.dt,
+        target_date:new Date()
+      }
+       this._traineeService.addUsertoTraining(traineeDetails);
+    }
 
 }

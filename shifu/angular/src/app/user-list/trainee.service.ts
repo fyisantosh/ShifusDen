@@ -36,11 +36,14 @@ export class TraineeService {
   }
 
   addUsertoTraining(traineeDetails: ITrainingTrainee) {
-    console.log('Called -->addUsertoTraining');
+    alert('Called -->addUsertoTraining');
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    let url = this._traineeURL + '/' + traineeDetails.trainingId + '/trainees';
-    return this._http.post(url, traineeDetails, options)
+    alert(this._traineeURL);
+    alert(traineeDetails.trainingId);
+    let addurl = this._traineeURL + '/' + traineeDetails.trainingId + '/trainees';
+    alert(addurl);
+    return this._http.post(addurl, traineeDetails, options)
       .map((response: Response) => response.json())
       .do(data => console.log('addUsertoTraining:' + JSON.stringify(data)))
       .catch(this.handleError);
