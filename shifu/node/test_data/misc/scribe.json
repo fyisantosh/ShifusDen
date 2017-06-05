@@ -1,0 +1,44 @@
+db.training.aggregate([
+            {
+                $match: {
+                    "_id": "5913b4e59608d9a7c53e3107"
+                }
+            }, {
+                $unwind: "$trainees"
+            },
+            {
+                $lookup: {
+                    from: "trainee",
+                    localField: "trainees.psno",
+                    foreignField: "_id",
+                    as: "trainee_detail"
+                }
+            },
+            {
+                $unwind: "$trainee_detail"
+            },
+            {
+                $match: {
+                    "trainee_detail.opco": "GuyCarp"
+                }
+            },
+            {
+                $group: {
+                    "_id": { "opco": "$trainee_detail.opco", "status": "$trainees.status" },
+                    "crowd": {
+                        "$sum": 1
+                    }
+                }
+            },
+            {
+                $group: {
+                    "_id": "$_id.opco",
+                    "stats": {
+                        "$push": {
+                            "status": "$_id.status",
+                            "count": "$crowd"
+                        }
+                    }
+                }
+            }
+        ])

@@ -98,13 +98,13 @@ db.training.aggregate(
 ).pretty()
 
 db.training.findAndModify({
-    query: { "_id": "5913b4e5079caaa510eddf55", "trainees.psno": {$in:["721423","721417","721410"] }},
+    query: { "_id": "5913b4e5079caaa510eddf55", "trainees.psno": { $in: ["721423"] } },
     update: { $set: { "trainees.[].status": "n" } }
 })
 
 
-db.training.findAndModify({
-    query: { "_id": "5913b4e510adad41cc4216d1", "trainees.psno": 721424 },
+db.training.findAndUpdate({
+    query: { "_id": "5913b4e510adad41cc4216d1", "trainees.psno": "721424" },
     update: { $set: { "trainees.$.status": "n" } }
 })
 
@@ -124,3 +124,17 @@ db.trainee.aggregate(
         }
     ]
 );
+
+db.training.aggregate(
+    [
+        { $unwind: "$trainees" },
+        { $match: { "trainees.psno": "721425" } },
+        {
+            $project:
+            {
+                "tname":1,
+                "status":"$trainees.status"
+            }
+        }
+    ]
+)
