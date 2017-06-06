@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatepickerModule } from 'ngx-bootstrap/datepicker';
+
 @Component({
   selector: 'app-welcome-component',
   template: `
@@ -16,7 +16,7 @@ import { DatepickerModule } from 'ngx-bootstrap/datepicker';
         <div class='container'>
             <router-outlet></router-outlet>
         </div>
-     </div>     
+     </div>
   `,
   styles: []
 })

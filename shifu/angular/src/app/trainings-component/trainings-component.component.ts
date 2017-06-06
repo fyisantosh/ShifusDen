@@ -17,7 +17,7 @@ export class TrainingsComponent implements OnInit {
   showImage: boolean = false;
   listFilter: string;
   errorMessage: string;
-  showDialog:boolean = false;
+  showDialog = false;
 
   trainings: ITraining[];
   constructor(private _trainingService: TrainingService) {

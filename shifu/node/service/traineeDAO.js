@@ -44,7 +44,6 @@ var traineeDAO = {
         //console.log(JSON.stringify(query._conditions));
 
         query.lean().exec(function (err, t1) {
-
             if (typeof t1 !== 'undefined' && t1) {
                 if (wt == 1) {
                     total_tn = t1.length - 1;

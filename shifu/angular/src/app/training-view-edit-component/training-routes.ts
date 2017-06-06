@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { UserListComponent } from '../user-list/trainee-components/user-list.component';
+import { UserListComponent } from '../user-list/user-list.component';
 export const TRAINING_ROUTE:Routes=[
 { path: '', redirectTo: 'active', pathMatch: 'full'},
 {path:'active',component: UserListComponent},
