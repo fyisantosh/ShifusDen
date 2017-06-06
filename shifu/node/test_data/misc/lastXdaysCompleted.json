@@ -1,35 +1,59 @@
-{
-    "_id": "gdjagd878757d57",
-    "t": 50,
-    "p": 12,
-    "c": 23,
-    "a": 12
-}
-
 db.training.aggregate([
-    {
-        "$match": {
-            "_id": "5913b4e510adad41cc4216d1"
-        }
-    },
     {
         "$unwind": "$trainees"
     },
     {
-        "$group": {
-            "_id": "$trainees.status",
-            "crowd": {
-                "$sum": 1
+        "$match": {
+            "trainees.status_date": {
+                "$gte":new Date(ISODate().getTime() -1000 *3600 *24 *100)
             }
         }
     },
     {
         "$group": {
-            "_id": null,
-            "stats": {
-                "$push": {
-                    "status": "$_id",
-                    "count": "$crowd"
+            "_id": {
+                "tid": "$_id",
+                "tname": "$tname"
+            },
+            "trainnes": {
+                "$sum": 1
+            }
+        }
+    }
+]
+)
+
+
+db.training.aggregate([
+    {
+        "$unwind": "$trainees"
+    },
+    {
+        "$match": {
+            "trainees.status_date": {
+                "$gte":new Date(ISODate().getTime() -1000 *3600 *24 *100)
+            }
+        }
+    },
+    {
+                    $lookup: {
+                        from: "trainee",
+                        localField: "trainees.psno",
+                        foreignField: "_id",
+                        as: "trainees.trainee_details"
+        }
+    },
+    { $unwind: "$trainees.trainee_details" },    
+    {
+        "$group": {
+            "_id": {
+                "tid": "$_id",
+                "tname": "$tname"
+            },
+            "trainnes": {
+                "$addToSet": {
+                    "psno": "$trainees.trainee_details._id",
+                    "name": "$trainees.trainee_details.name"
                 }
             }
         }
