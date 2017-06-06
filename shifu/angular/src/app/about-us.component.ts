@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-about-us',
@@ -20,16 +22,16 @@ import { Component, OnInit } from '@angular/core';
             <div class="text-center">@L&T Infotech</div>
         </div>
     </div>
-    </div> 
+    </div>
+     
   `,
-  styles: []
+  styles: [],
+  host: {
+'(document:click)': 'onClick($event)',
+}
 })
-export class AboutUSComponent implements OnInit {
+export class AboutUSComponent  {
 
-  pageTitle :string ='About us';
-  constructor() { }
-
-  ngOnInit() {
-  }
+  pageTitle: string = 'About us';
 
 }

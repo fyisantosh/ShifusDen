@@ -226,18 +226,19 @@ export class UserListComponent implements OnInit {
 
 
     assignUser2Training(){
-      alert('assignUser2Training');
-      alert('trainingId :'+this.trainingDetails[2]);
-      alert('Users PS nos :'+this.selectedItems)
-      alert('target date :'+ this.dt);
+      //alert('assignUser2Training');
+      //alert('trainingId :'+this.trainingDetails[2]);
+      //alert('Users PS nos :'+this.selectedItems)
+      //alert('target date :'+ this.dt);
       let traineeDetails: any={
         trainingId:this.trainingDetails[2],
-        updatedStatus:'active',
+        updatedStatus:'p',
         psnos:this.selectedItems,
         status_date:this.dt,
         target_date:new Date()
       }
        this._traineeService.addUsertoTraining(traineeDetails);
+       console.log("Done calling add");
     }
 
 }
