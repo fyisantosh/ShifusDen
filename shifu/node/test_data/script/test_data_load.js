@@ -278,8 +278,8 @@ db.training.update({
         "trainees": {
             "psno": "1011329",
             "status": "p",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 0,
             "assessment": false
         }
@@ -294,8 +294,8 @@ db.training.update({
         "trainees": {
             "psno": "1011315",
             "status": "p",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 0,
             "assessment": false
         }
@@ -310,8 +310,8 @@ db.training.update({
         "trainees": {
             "psno": "1011316",
             "status": "p",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 0,
             "assessment": false
         }
@@ -326,8 +326,8 @@ db.training.update({
         "trainees": {
             "psno": "866196",
             "status": "p",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 0,
             "assessment": false
         }
@@ -343,8 +343,8 @@ db.training.update({
         "trainees": {
             "psno": "1011329",
             "status": "c",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 100,
             "assessment": true
         }
@@ -359,8 +359,8 @@ db.training.update({
         "trainees": {
             "psno": "1011315",
             "status": "c",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 100,
             "assessment": true
         }
@@ -375,8 +375,8 @@ db.training.update({
         "trainees": {
             "psno": "1011316",
             "status": "c",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 100,
             "assessment": true
         }
@@ -393,8 +393,8 @@ db.training.update({
         "trainees": {
             "psno": "866196",
             "status": "a",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 30,
             "assessment": false
         }
@@ -409,8 +409,8 @@ db.training.update({
         "trainees": {
             "psno": "1027488",
             "status": "p",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 0,
             "assessment": false
         }
@@ -425,8 +425,8 @@ db.training.update({
         "trainees": {
             "psno": "1021231",
             "status": "p",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 0,
             "assessment": false
         }
@@ -441,8 +441,8 @@ db.training.update({
         "trainees": {
             "psno": "1025258",
             "status": "p",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 0,
             "assessment": false
         }
@@ -457,8 +457,8 @@ db.training.update({
         "trainees": {
             "psno": "1071681",
             "status": "a",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 20,
             "assessment": false
         }
@@ -473,8 +473,8 @@ db.training.update({
         "trainees": {
             "psno": "1017564",
             "status": "a",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 20,
             "assessment": false
         }
@@ -489,8 +489,8 @@ db.training.update({
         "trainees": {
             "psno": "1007516",
             "status": "a",
-            "target_date": "2016-05-18T16:00:00Z",
-            "status_date": "2016-05-18T16:00:00Z",
+            "target_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
+            "status_date": new Date(ISODate().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * (60 - 2 + 1)) + 2),
             "pcomplete": 20,
             "assessment": false
         }
