@@ -9,8 +9,8 @@ import * as moment from 'moment';
 
 @Component({
   selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css'],
+  templateUrl: './trainee-list.component.html',
+  styleUrls: ['./trainee-list.component.css'],
   animations: [
     trigger('dialog', [
       transition('void => *', [

@@ -13,7 +13,7 @@ import { AboutUSComponent } from './about-us.component';
 import { TrainingAdditionComponent } from './training-addition-component/training-addition-component.component';
 import { TrainingViewEditComponent } from './training-view-edit-component/training-view-edit.component';
 import { TRAINING_ROUTE } from './training-view-edit-component/training-routes';
-import { UserListComponent } from './user-list/trainee-components/user-list.component';
+import { UserListComponent } from './user-list/trainee-components/trainee-list.component';
 import { TraineeService } from './user-list/trainee.service';
 import {TraineeFilterPipe} from './user-list/trainee-filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
