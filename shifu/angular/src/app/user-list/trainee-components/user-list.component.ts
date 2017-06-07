@@ -56,6 +56,7 @@ export class UserListComponent implements OnInit {
   }
 
   closeSelectDateDialog() {
+    alert('called');
     this.selectDateVisible = false;
     this.selectDateOpen = false;
   }
@@ -68,13 +69,13 @@ export class UserListComponent implements OnInit {
     this.trainingDetails = this.router.url.split('/');
 
     if (this.router.url.indexOf('active') !== -1) {
-      this.tab = 'a';
+      this.tab = 'p';
     }
     else if (this.router.url.indexOf('completed') !== -1) {
       this.tab = 'c';
     }
     else {
-      this.tab = 'p';
+      this.tab = 'a';
     }
 
     this.getTrainees();
@@ -212,33 +213,34 @@ export class UserListComponent implements OnInit {
 
   selectedValues(user, event) {
 
-        var index = this.selectedItems.indexOf(user._id);
-        if (event.target.checked) {
-            if (index === -1) {
-                this.selectedItems.push(user._id);
-            }
-        } else {
-            if (index !== -1) {
-                this.selectedItems.splice(index, 1);
-            }
-        }
-    }
-
-
-    assignUser2Training(){
-      //alert('assignUser2Training');
-      //alert('trainingId :'+this.trainingDetails[2]);
-      //alert('Users PS nos :'+this.selectedItems)
-      //alert('target date :'+ this.dt);
-      let traineeDetails: any={
-        trainingId:this.trainingDetails[2],
-        updatedStatus:'p',
-        psnos:this.selectedItems,
-        status_date:this.dt,
-        target_date:new Date()
+    var index = this.selectedItems.indexOf(user._id);
+    if (event.target.checked) {
+      if (index === -1) {
+        this.selectedItems.push(user._id);
       }
-       this._traineeService.addUsertoTraining(traineeDetails);
-       console.log("Done calling add");
+    } else {
+      if (index !== -1) {
+        this.selectedItems.splice(index, 1);
+      }
     }
+  }
+
+
+  assignUser2Training() {
+    let traineeDetails: any = {
+      trainingId: this.trainingDetails[2],
+      updatedStatus: 'p',
+      psnos: this.selectedItems,
+      status_date: this.dt,
+      target_date: new Date()
+    };
+
+    this._traineeService.addUsertoTraining(traineeDetails).subscribe(response => console.log('Response-->'+response),
+      error => this.errorMessage = <any>error);
+
+    //this.closeSelectDateDialog();
+
+    //this.getTrainees();
+  }
 
 }

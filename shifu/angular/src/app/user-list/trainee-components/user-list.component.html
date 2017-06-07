@@ -1,4 +1,4 @@
-<div *ngIf="tab=='a'">
+<div *ngIf="tab=='p'">
     <br><br>
     <div class="container">
         <div class='row content'>
@@ -37,7 +37,12 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let user of searchResult; let i = index">
-                                                        <td><input type="checkbox" id="checkbox_user_{{i}}" (change)="selectedValues(user, $event)"></td>
+                                                        <td *ngIf="user.active_training">
+                                                            <input type="checkbox" id="checkbox_user_{{i}}" (change)="selectedValues(user, $event)" disabled="disabled">
+                                                        </td>
+                                                        <td *ngIf="!user.active_training">
+                                                            <input type="checkbox" id="checkbox_user_{{i}}" (change)="selectedValues(user, $event)">
+                                                        </td>
                                                         <td>{{user._id}}</td>
                                                         <td>{{user.name.first}} , {{user.name.last}} ({{user.opco}})</td>
                                                         <td *ngIf="user.active_training">{{user.active_training}}</td>
@@ -104,7 +109,7 @@
             Select Target Date
         </div>
         <div class='panel-body'>
-            <form role="form" class="form-horizontal" #frm="ngForm" (ngSubmit)="traineeSearch(frm)">
+            <form role="form" class="form-horizontal">
                 <div class="form-group">
                     <div class='col-sm-5'>
                         <div class='input-group date'>
@@ -172,7 +177,7 @@
         </div>
     </div>
 </div>
-<div *ngIf="tab=='p' ">
+<div *ngIf="tab=='a' ">
     <br><br>
     <div class="container">
         <div class='row content'>

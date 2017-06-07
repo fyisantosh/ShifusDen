@@ -30,7 +30,6 @@ export class TraineeService {
     console.log('Called -->searchUser');
     let url = this._userURL + '?f=' + fname + '&l=' + lname + '&ps=' + psno + '&wt=1&t=s&tp1=tp1';
     console.log(url);
-     console.log(JSON.stringify(this._http));
     return this._http.get(url)
       .map((response: Response) => <ITrainee[]>response.json())
       .do(data => console.log('ALL getTrainings:' + JSON.stringify(data)))
@@ -54,6 +53,8 @@ export class TraineeService {
 
 
   addUsertoTraining (traineeDetails: ITrainingTrainee): Observable<Response> {
+        //let testUrl='http://10.2.122.111:3000/trainees?f=a&l=h&ps=&wt=1&t=s&tp1=tp1';
+        
         let bodyString = JSON.stringify(traineeDetails); // Stringify payload
         let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
         let options       = new RequestOptions({ headers: headers }); // Create a request option
@@ -64,13 +65,15 @@ export class TraineeService {
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
 
         console.log(test);
-        return test;
+        return test;  
+
     }   
 
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
+  
   constructor(private _http: Http) {
   }
 
