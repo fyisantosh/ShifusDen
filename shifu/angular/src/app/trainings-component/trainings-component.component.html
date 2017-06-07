@@ -46,7 +46,7 @@
                         <td>
                             <img *ngIf='training ' [src]='training?.imageUrl ' [title]='training?.trainingName | uppercase ' [style.width.px]='imageWidth ' [style.margin.px]='imageMargin ' onError="this.src='http://iimbg.ac.in/sites/all/themes/iimc/images/no-image.jpg'">
                             <a [routerLink]="['/showtraining',training?._id ]">
-                            {{training?.tname}}
+                            {{training?.tname +" " +training?.mode }} 
                             </a>
                         </td>
                         <td>{{ training?.mode | uppercase}}</td>
