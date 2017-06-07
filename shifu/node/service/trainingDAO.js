@@ -68,7 +68,6 @@ var trainingDAO = {
 
     addTraineesForTraining: function (req, res) {
         var idsToAdd = req.body.psnos;
-
         training.findById(
             { "_id": req.params['id'] })
             .exec(function (err, t) {
@@ -77,12 +76,12 @@ var trainingDAO = {
                     strIdToAdd = {
                         "psno": psno,
                         "status": "p",
-                        "target_date": req.body.target_date,
-                        "status_date": req.body.status_date,
+                        "target_date": new Date(req.body.target_date).toISOString(),
+                        "status_date": new Date(req.body.status_date).toISOString(),
                         "pcomplete": 0,
                         "assessment": false
                     }
-                    t.trainees.push(strIdToAdd);
+                    t.trainees.addToSet(strIdToAdd);
                 }, this);
 
                 t.save(function (err, result) {
