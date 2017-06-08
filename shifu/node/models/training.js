@@ -3,8 +3,7 @@ var config = require('../config/config.json');
 
 var Schema = mongoose.Schema;
 
-if (mongoose.connection.readyState == 0)
- // mongoose.connect('mongodb://localhost/shifudb');
+if (mongoose.connection.readyState == 0) 
   mongoose.connect(config.db_url);
 
 var trainingSchema = Schema({
