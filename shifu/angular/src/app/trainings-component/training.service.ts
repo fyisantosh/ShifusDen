@@ -11,14 +11,15 @@ import 'rxjs/add/observable/throw';
 export class TrainingService {
 
   //private _trainingURL = 'api/trainings/training.json';
-  private _trainingURL = 'http://10.2.122.111:3000/trainings';
+  private _trainingsURL = 'http://10.2.122.111:3000/trainings';
+  private _trainingURL = 'http://10.2.122.111:3000/training';
   private _trainingStatsURL = 'http://10.2.122.111:3000/stats/training/';
   //private _trainingURLs = 'api/trainings/trainingShowData.json';
 
 
   getTrainings(pageNumber: number,recordPerPage: number,queryString: string): Observable<ITraining[]> {
     console.log('Called -->getTrainings');
-    let url=this._trainingURL+'?p='+pageNumber+'&n='+recordPerPage+'&timestamp='+ Date.now();
+    let url=this._trainingsURL+'?p='+pageNumber+'&n='+recordPerPage+'&timestamp='+ Date.now();
     if(queryString!=null){
         url=url+'&q='+queryString;
     }
