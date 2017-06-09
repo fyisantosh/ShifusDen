@@ -23,7 +23,7 @@ import * as moment from 'moment';
     ])
   ]
 })
-export class UserListComponent implements OnInit {
+export class TraineeListComponent implements OnInit {
 
   trainingDetails: string[];
   tab: string;

@@ -83,7 +83,7 @@
                     <div class='col-md-8'>
                         <br><br><br>
                         <ul class="nav nav-tabs">
-                            <li [class]='active'><a (click)=" onTabClick( ' active ') ">Active</a></li>
+                            <li [class]='active'><a [routerLink]="['/showtraining/'+training?._id+'/active' ]" routerLinkActive="selected " (click)=" onTabClick( ' active ') ">Active</a></li>
                             <li [class]='completed '><a (click)="onTabClick( 'completed ') ">Completed</a></li>
                             <li [class]='abandoned '><a (click)="onTabClick( 'abandoned ') ">Abandoned</a></li>
                         </ul>

@@ -12,7 +12,7 @@ export class TrainingService {
 
   //private _trainingURL = 'api/trainings/training.json';
   private _trainingURL = 'http://10.2.122.111:3000/trainings';
-  private _trainingURLs = 'http://10.2.122.111:3000/training';
+  private _trainingStatsURL = 'http://10.2.122.111:3000/stats/training/';
   //private _trainingURLs = 'api/trainings/trainingShowData.json';
 
 
@@ -31,8 +31,17 @@ export class TrainingService {
 
   getTraining(trainingId: string): Observable<ITraining[]>{
     console.log('Called -->getTraining');
-    console.log(this._trainingURLs+"/"+trainingId);
-    return this._http1.get(this._trainingURLs+"/"+trainingId)
+    console.log(this._trainingURL+"/"+trainingId);
+    return this._http1.get(this._trainingURL+"/"+trainingId)
+      .map((response1: Response) => <ITraining[]>response1.json())
+      .do(data1 => console.log('ALL getTraining:' + JSON.stringify(data1)))
+      .catch(this.handleError);
+  };
+
+  getTrainingStats(trainingId: string): Observable<Response>{
+    console.log('Called -->getTrainingStats');
+    console.log(this._trainingStatsURL+"/"+trainingId);
+    return this._http1.get(this._trainingURL+"/"+trainingId)
       .map((response1: Response) => <ITraining[]>response1.json())
       .do(data1 => console.log('ALL getTraining:' + JSON.stringify(data1)))
       .catch(this.handleError);

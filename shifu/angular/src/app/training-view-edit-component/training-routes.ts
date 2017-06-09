@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { UserListComponent } from '../user-list/trainee-components/trainee-list.component';
+import { TraineeListComponent } from '../user-list/trainee-components/trainee-list.component';
 export const TRAINING_ROUTE:Routes=[
 { path: '', redirectTo: 'active', pathMatch: 'full'},
-{path:'active',component: UserListComponent},
-{path:'completed',component: UserListComponent},
-{path:'abandoned',component: UserListComponent}
+{path:'active',component: TraineeListComponent},
+{path:'completed',component: TraineeListComponent},
+{path:'abandoned',component: TraineeListComponent}
 ];
