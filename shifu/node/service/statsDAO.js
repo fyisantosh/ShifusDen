@@ -22,21 +22,17 @@ var statsDAO = {
                 $unwind: "$trainee_detail"
             },
             {
-                $group: {
-                    "_id": { "status": "$trainees.status" },
-                    "crowd": {
-                        "$sum": 1
-                    }
+                $project: {
+                    "_id": 0,
+                    "s": "$trainees.status",
+                    "p": "$trainee_detail._id"
                 }
             },
             {
                 $group: {
-                    "_id": null,
+                    "_id": "$s",
                     "stats": {
-                        "$push": {
-                            "status": "$_id.status",
-                            "count": "$crowd"
-                        }
+                        $sum: 1
                     }
                 }
             }
@@ -44,10 +40,10 @@ var statsDAO = {
 
         qryStats.exec(function (err, st) {
             if (err) res.send(false);
-            stats = st[0];
+            stats = st || {};
             var qAll = trainee.find({}).count(function (err, c) {
-                stats.totalTrainees = c;
-                res.send(stats);
+                st.push({ "_id": "t", "stats": c });
+                res.send(st);
             });
         });
     },
@@ -74,23 +70,17 @@ var statsDAO = {
                 $unwind: "$trainee_detail"
             },
             {
-                $group: {
-                    "_id": {
-                        "status": "$trainees.status"
-                    },
-                    "crowd": {
-                        "$sum": 1
-                    }
+                $project: {
+                    "_id": 0,
+                    "s": "$trainees.status",
+                    "p": "$trainee_detail._id"
                 }
             },
             {
                 $group: {
-                    "_id": null,
+                    "_id": "$s",
                     "stats": {
-                        "$push": {
-                            "status": "$_id.status",
-                            "count": "$crowd"
-                        }
+                        $sum: 1
                     }
                 }
             }
@@ -98,10 +88,10 @@ var statsDAO = {
 
         qryStats.exec(function (err, st) {
             if (err) res.send(false);
-            stats = st[0] || {};
+            stats = st || {};
             var qAll = trainee.find({}).count(function (err, c) {
-                stats.totalTrainees = c;
-                res.send(stats);
+                st.push({ "_id": "t", "stats": c });
+                res.send(st);
             });
         });
     },
@@ -133,23 +123,17 @@ var statsDAO = {
                 }
             },
             {
-                $group: {
-                    "_id": {
-                        "status": "$trainees.status"
-                    },
-                    "crowd": {
-                        "$sum": 1
-                    }
+                $project: {
+                    "_id": 0,
+                    "s": "$trainees.status",
+                    "p": "$trainee_detail._id"
                 }
             },
             {
                 $group: {
-                    "_id": null,
+                    "_id": "$s",
                     "stats": {
-                        "$push": {
-                            "status": "$_id.status",
-                            "count": "$crowd"
-                        }
+                        $sum: 1
                     }
                 }
             }
@@ -157,10 +141,10 @@ var statsDAO = {
 
         qryStats.exec(function (err, st) {
             if (err) res.send(false);
-            stats = st[0] || {};
+            stats = st || {};
             var qAll = trainee.find({ "opco": req.params['opco'] }).count(function (err, c) {
-                stats.totalTrainees = c;
-                res.send(stats);
+                st.push({ "_id": "t", "stats": c });
+                res.send(st);
             });
         });
     },
@@ -187,21 +171,17 @@ var statsDAO = {
                 }
             },
             {
-                $group: {
-                    "_id": { "opco": "$trainee_detail.opco", "status": "$trainees.status" },
-                    "crowd": {
-                        "$sum": 1
-                    }
+                $project: {
+                    "_id": 0,
+                    "s": "$trainees.status",
+                    "p": "$trainee_detail._id"
                 }
             },
             {
                 $group: {
-                    "_id": "$_id.opco",
+                    "_id": "$s",
                     "stats": {
-                        "$push": {
-                            "status": "$_id.status",
-                            "count": "$crowd"
-                        }
+                        $sum: 1
                     }
                 }
             }
@@ -209,10 +189,10 @@ var statsDAO = {
 
         qryStats.exec(function (err, st) {
             if (err) res.send(false);
-            stats = st[0] || {};
+            stats = st || {};
             var qAll = trainee.find({ "opco": req.params['opco'] }).count(function (err, c) {
-                stats.totalTrainees = c;
-                res.send(stats);
+                st.push({ "_id": "t", "stats": c });
+                res.send(st);
             });
         });
     },
@@ -223,7 +203,8 @@ var statsDAO = {
                 $match: {
                     "_id": req.params['id']
                 }
-            }, {
+            },
+            {
                 $unwind: "$trainees"
             },
             {
@@ -243,21 +224,17 @@ var statsDAO = {
                 }
             },
             {
-                $group: {
-                    "_id": { "opco": "$trainee_detail.opco", "status": "$trainees.status" },
-                    "crowd": {
-                        "$sum": 1
-                    }
+                $project: {
+                    "_id": 0,
+                    "s": "$trainees.status",
+                    "p": "$trainee_detail._id"
                 }
             },
             {
                 $group: {
-                    "_id": "$_id.opco",
+                    "_id": "$s",
                     "stats": {
-                        "$push": {
-                            "status": "$_id.status",
-                            "count": "$crowd"
-                        }
+                        $sum: 1
                     }
                 }
             }
@@ -265,10 +242,10 @@ var statsDAO = {
 
         qryStats.exec(function (err, st) {
             if (err) res.send(false);
-            stats = st[0] || {};
+            stats = st || {};
             var qAll = trainee.find({ "opco": req.params['opco'] }).count(function (err, c) {
-                stats.totalTrainees = c;
-                res.send(stats);
+                st.push({ "_id": "t", "stats": c });
+                res.send(st);
             });
         });
     }
