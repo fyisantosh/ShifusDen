@@ -1,3 +1,3 @@
 {
-    "db_url" : "mongodb://USFRKGVDIF00154/shifudb"
+    "db_url" : "mongodb://localhost/shifudb"
 }
