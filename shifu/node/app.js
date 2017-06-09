@@ -3,7 +3,7 @@ var cors = require('cors');
 var trainingroute = require("./routers/training_route");
 var traineeroute = require("./routers/trainee_route");
 var statsroute = require("./routers/stats_route");
-
+require("./mongo");
 
 app = new express();
 app.use(cors());
