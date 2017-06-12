@@ -36,19 +36,6 @@ export class TraineeService {
       .catch(this.handleError);
   }
 
-    getUsersList(pageNumber: number,recordPerPage: number,queryString: string): Observable<ITrainee[]> {
-    console.log('Called -->getUsersList');
-    let url=this._userURL+'?p='+pageNumber+'&n='+recordPerPage+'&timestamp='+ Date.now();
-     if(queryString!=null){
-        url=url+'&f='+queryString+'&l='+queryString+'&ps='+queryString+'&o='+queryString;
-    }
-    console.log(url);
-    return this._http.get(url)
-      .map((response: Response) => <ITrainee[]>response.json())
-      .do(data => console.log('ALL getTrainings:' + JSON.stringify(data)))
-      .catch(this.handleError);
-  };
-
   addUsertoTraining11(traineeDetails: ITrainingTrainee): Observable<Response> {
     alert('Called -->addUsertoTraining');
     console.log('Called -->addUsertoTraining');

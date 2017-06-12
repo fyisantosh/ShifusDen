@@ -1,5 +1,4 @@
 export interface ITrainee {
-     _id:string,
     psno:number,
     name: {first: string,last:string};
     first_name:string,

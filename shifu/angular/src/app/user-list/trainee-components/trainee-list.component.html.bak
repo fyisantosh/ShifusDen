@@ -1,0 +1,220 @@
+<div *ngIf="tab=='p'">
+    <br><br>
+    <div class="container">
+        <div class='row content'>
+            <div class='col-md-2'> Filter by :</div>
+            <div class='col-md-2'>
+                <input type='text' [(ngModel)]='userFilter' />
+            </div>
+            <div class='col-md-4 text-left'>
+                <button type="button" (click)="openSearchUserDialog()" class="btn btn-primary pull-right">+ Assign User</button>
+                <div [@dialog] *ngIf="searchUserVisible" class="dialog" [style.min-height.px]='searchUserMinHeight' [style.max-width.px]='searchUserMaxWidth'>
+                    <div class='panel panel-primary'>
+                        <div class='panel-heading' style='font-size:large'>
+                            Search User
+                        </div>
+                        <div class='panel-body'>
+                            <form role="form" class="form-horizontal" #frm="ngForm" (ngSubmit)="traineeSearch(frm)">
+                                <div class="form-group">
+                                    <div class="col-sm-4"><label>First name</label><input class="form-control" placeholder="Enter First Name" type="text" name="fname" id="fname" ngModel></div>
+                                    <div class="col-sm-4"><label>Last name</label><input class="form-control" placeholder="Enter Last Name" type="text" name="lname" id="lname" ngModel></div>
+                                    <div class="col-sm-4"><label>PS#</label><input class="form-control" placeholder="Enter PS#" type="text" name="psno" id="psno" ngModel></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4"><button type="submit" class="btn btn-primary ">Search</button></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class='table-responsive scrolling' style="display:inline-block;">
+                                            <table class="table table-striped " *ngIf="searchResult">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="col-xs-1"></th>
+                                                        <th class="col-xs-2">PS#</th>
+                                                        <th class="col-xs-3">Name</th>
+                                                        <th class="col-xs-3">Ongoing Trainings</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let user of searchResult; let i = index">
+                                                        <td *ngIf="user.active_training">
+                                                            <input type="checkbox" id="checkbox_user_{{i}}" (change)="selectedValues(user, $event)" disabled="disabled">
+                                                        </td>
+                                                        <td *ngIf="!user.active_training">
+                                                            <input type="checkbox" id="checkbox_user_{{i}}" (change)="selectedValues(user, $event)">
+                                                        </td>
+                                                        <td>{{user._id}}</td>
+                                                        <td>{{user.name.first}} , {{user.name.last}} ({{user.opco}})</td>
+                                                        <td *ngIf="user.active_training">{{user.active_training}}</td>
+                                                        <td *ngIf="!user.active_training">No active trainings</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" *ngIf="searchResult">
+                                    <div class="col-sm-4"><button type="button" (click)="selectDate()" class="btn btn-primary ">Assign</button></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <button *ngIf=" searchUserClosable " (click)="closeSearchUserDialog() " aria-label="Close " class="dialog__close-btn ">X</button>
+                </div>
+                <div *ngIf="searchUserVisible " class="overlay " (click)="close() "></div>
+            </div>
+
+
+        </div>
+        <div class='row content'>
+            <div class='col-md-6' *ngIf='userFilter'>
+                <h4>Filtered by: {{userFilter}} </h4>
+            </div>
+        </div>
+        <div class='row content'> <br><br> </div>
+        <div class='row content'>
+            <div class="col-md-9">
+                <div class='table-responsive'>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-3">PS#</th>
+                                <th class="col-xs-4">Name</th>
+                                <th class="col-xs-3">% Completion</th>
+                                <th class="col-xs-3">Target Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let trainee of trainees | traineeFilter : userFilter'>
+                                <td>{{trainee.psno}}</td>
+                                <td>{{trainee.first_name}} , {{trainee.last_name}} ({{trainee.opco}})</td>
+                                <td>100%</td>
+                                <td>{{trainee.target_date | date : 'mediumDate'}}</td>
+                                <td>
+                                    <span (click)="markComplete(trainee.first_name,trainee.last_name,trainee.opco,trainee.psno)" class="glyphicon glyphicon-thumbs-up"></span>
+                                    <span (click)="markAborted(trainee.first_name,trainee.last_name,trainee.opco,trainee.psno)" class="glyphicon glyphicon-thumbs-down"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div [@dialog] *ngIf="selectDateOpen" class="dialog" [style.min-height.px]='assignDateMinHeight' [style.max-width.px]='assignDateMaxWidth'>
+    <div class='panel panel-primary'>
+        <div class='panel-heading' style='font-size:large'>
+            Select Target Date
+        </div>
+        <div class='panel-body'>
+            <form role="form" class="form-horizontal">
+                <div class="form-group">
+                    <div class='col-sm-5'>
+                        <div class='input-group date'>
+                            <input type='text' class="form-control" value="{{ getDate() | date:'dd-MMMM-yyyy' }}" />
+                            <span class="input-group-addon" (click)="open()">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class='col-sm-5'>
+                        Select
+                        <a (click)='addMonths(1)'>1</a>,
+                        <a (click)='addMonths(1.5)'>1.5</a>,
+                        <a (click)='addMonths(2)'>2</a> Months from now.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4"><button type="submit" class="btn btn-primary " (click)="assignUser2Training()">Submit</button></div>
+                </div>
+            </form>
+            <div style="display:inline-block;" *ngIf="opened">
+                <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled" (selectionDone)="onSelectionDone($event)"></datepicker>
+            </div>
+        </div>
+    </div>
+    <button *ngIf=" selectDateClosable " (click)="closeSelectDateDialog() " aria-label="Close " class="dialog__close-btn ">X</button>
+</div>
+
+<div *ngIf="tab=='c' ">
+    <br><br>
+    <div class="container">
+        <div class='row content'>
+            <div class='col-md-2'> Filter by :</div>
+            <div class='col-md-2'>
+                <input type='text' [(ngModel)]='userFilter' />
+            </div>
+        </div>
+        <div class='row content' *ngIf='userFilter'>
+            <div class='col-md-6'>
+                <h4>Filtered by: {{userFilter}} </h4>
+            </div>
+        </div>
+        <div class='row content'> <br><br> </div>
+        <div class='row content'>
+            <div class="col-md-9">
+                <div class='table-responsive'>
+                    <table class="table table-striped ">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-3">PS#</th>
+                                <th class="col-xs-4">Name</th>
+                                <th class="col-xs-3">Completion Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let trainee of trainees | traineeFilter : userFilter'>
+                                <td>{{trainee.psno}}</td>
+                                <td>{{trainee.first_name}} , {{trainee.last_name}} ({{trainee.opco}})</td>
+                                <td>{{trainee.status_date | date : 'mediumDate'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="tab=='a' ">
+    <br><br>
+    <div class="container">
+        <div class='row content'>
+            <div class='col-md-2'> Filter by :</div>
+            <div class='col-md-2'>
+                <input type='text' [(ngModel)]='userFilter' />
+            </div>
+        </div>
+        <div class='row content' *ngIf='userFilter'>
+            <div class='col-md-6'>
+                <h4>Filtered by: {{userFilter}} </h4>
+            </div>
+        </div>
+        <div class='row content'> <br><br> </div>
+        <div class='row content'>
+            <div class="col-md-9">
+                <div class='table-responsive '>
+                    <table class="table table-condensed table-striped ">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-2">PS#</th>
+                                <th class="col-xs-4">Name</th>
+                                <th class="col-xs-2">% Completion</th>
+                                <th class="col-xs-3">Abandon Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let trainee of trainees | traineeFilter : userFilter'>
+                                <td>{{trainee.psno}}</td>
+                                <td>{{trainee.first_name}} , {{trainee.last_name}} ({{trainee.opco}})</td>
+                                <td>73%</td>
+                                <td>{{trainee.status_date | date : 'mediumDate'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

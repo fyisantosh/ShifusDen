@@ -15,13 +15,12 @@ import { TrainingViewEditComponent } from './training-view-edit-component/traini
 import { TRAINING_ROUTE } from './training-view-edit-component/training-routes';
 import { TraineeListComponent } from './user-list/trainee-components/trainee-list.component';
 import { TraineeService } from './user-list/trainee.service';
-import { TraineeFilterPipe} from './user-list/trainee-filter.pipe';
+import {TraineeFilterPipe} from './user-list/trainee-filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from "app/training-widget-component/dialog-component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AlertModule } from 'ngx-bootstrap';
 import { DatepickerModule } from 'ngx-bootstrap';
-import { UserListComponent } from './user-list/user-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +32,6 @@ import { UserListComponent } from './user-list/user-list.component';
     TrainingAdditionComponent,
     TrainingViewEditComponent,
     TraineeListComponent,
-    UserListComponent,
     TraineeFilterPipe,
     DialogComponent
   ],
@@ -47,7 +45,6 @@ import { UserListComponent } from './user-list/user-list.component';
     AlertModule.forRoot(),
     RouterModule.forRoot([
       { path: 'welcome', component: TrainingsComponent},
-      { path: 'userlist', component: UserListComponent },
       { path: 'aboutUs', component: AboutUSComponent },
       { path: 'addtraining', component: TrainingAdditionComponent },
        { path: 'showtraining/:id', component: TrainingViewEditComponent,children:TRAINING_ROUTE},

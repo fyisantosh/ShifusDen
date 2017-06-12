@@ -1,0 +1,61 @@
+<ul class="pager">
+    <li class="next"><a (click)='next()'>Next &#160;&#62;&#62;</a></li>
+    <li class="next"><a (click)='previous()'>&#60;&#60;&#160;Previous</a></li>
+</ul>
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
+
+    <!-- Filter the Trainings -->
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='col-md-2'> Filter by :</div>
+            <div class='col-md-2'>
+                <input type='text' [(ngModel)]='listFilter' (ngModelChange)='search()' />
+            </div>
+            <div class='col-md-2'>
+                <!-- <button type="button" class="btn btn-primary btn-sm" (click)='search()'>Search</button> -->
+            </div>
+            <div class='col-md-6'>
+                <button type="button" (click)="showDialog = !showDialog" class="btn btn-primary pull-right">+ Add User</button>
+                <app-dialog [(visible)]="showDialog">
+                    <app-training-addition-component></app-training-addition-component>
+                    <button (click)="showDialog = !showDialog" class="btn">Close</button>
+                </app-dialog>
+            </div>
+        </div>
+        <div class='row' *ngIf='listFilter'>
+            <div class='col-md-6'>
+                <h3>Filtered by: {{listFilter}} </h3>
+            </div>
+        </div>
+
+        <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+        <div class='table-responsive '>
+            <table class="table table-striped" *ngIf='trainees && trainees.length'>
+                <thead>
+                    <tr>
+                        <th *ngFor='let traineeAttribute of traineeAttributes'> {{traineeAttribute}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let trainee of trainees'>
+                        <td>{{trainee._id}}</td>  
+                       <!-- <td>{{trainee.name}}</td> -->
+                         <td>{{trainee.name.first}} , {{trainee.name.last}}</td>
+                        <td>{{ trainee?.opco | uppercase}}</td>
+                        <td>{{ trainee?.email}}</td>
+                        <td>{{ trainee?.phone}}  </td>                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<ul class="pager">
+    <li class="next"><a (click)='next()'>Next&#160;&#62;&#62;</a></li>
+    <li class="next"><a (click)='previous()'>&#60;&#60;&#160;Previous</a></li>
+</ul>
