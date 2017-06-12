@@ -38,7 +38,7 @@ export class TraineeService {
 
     getUsersList(pageNumber: number,recordPerPage: number,queryString: string): Observable<ITrainee[]> {
     console.log('Called -->getUsersList');
-    let url=this._userURL+'?p='+pageNumber+'&n='+recordPerPage+'&timestamp='+ Date.now();
+    let url=this._userURL+'?p='+pageNumber+'&n='+recordPerPage+'&t=s'+'&timestamp='+ Date.now();
      if(queryString!=null){
         url=url+'&f='+queryString+'&l='+queryString+'&ps='+queryString+'&o='+queryString;
     }
