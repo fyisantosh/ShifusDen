@@ -16,34 +16,44 @@ var traineeDAO = {
         p = req.query.p || 0;
         p = parseInt(n) * parseInt(p);
 
-        //console.log(" f = " + f + " l = " + l + " ps = " + ps + " o = " + o);
+        console.log(" f = " + f + " l = " + l + " ps = " + ps + " o = " + o);
         var conditions = [];
         if (f != '') conditions.push({ 'name.first': { '$regex': f, '$options': 'i' } });
         if (l != '') conditions.push({ 'name.last': { '$regex': l, '$options': 'i' } });
         if (o != '') conditions.push({ 'opco': { '$regex': o, '$options': 'i' } });
         if (ps != '') conditions.push({ '_id': { '$regex': ps, '$options': 'i' } });
-        //console.log(conditions);
 
         var query = null
         if (t == 's') {
-            query = trainee.find(
-                {
-                    $and: conditions
-                }
-            )
-                .limit(parseInt(n))
-                .skip(parseInt(p));
+            if (conditions.length > 0) {
+                query = trainee.find(
+                    {
+                        $and: conditions
+                    }
+                )
+                    .limit(parseInt(n))
+                    .skip(parseInt(p));
+            } else {
+                query = trainee.find()
+                    .limit(parseInt(n))
+                    .skip(parseInt(p));
+            }
         } else {
-            query = trainee.find(
-                {
-                    $or: conditions
-                }
-            )
+            if (conditions.length > 0) {
+                query = trainee.find(
+                    {
+                        $or: conditions
+                    }
+                )
+            } else {
+                query = trainee.find();
+            }
         }
 
         //console.log(JSON.stringify(query._conditions));
 
         query.lean().exec(function (err, t1) {
+            if (err) throw err;
             if (typeof t1 !== 'undefined' && t1) {
                 if (wt == 1) {
                     total_tn = t1.length - 1;
@@ -103,8 +113,8 @@ var traineeDAO = {
                         {
                             "tname": 1,
                             "status": "$trainees.status",
-                            "target":"$trainees.target_date",
-                            "pcomplete":"$trainees.pcomplete"
+                            "target": "$trainees.target_date",
+                            "pcomplete": "$trainees.pcomplete"
                         }
                     },
                     { $sort: { "status": 1 } }
