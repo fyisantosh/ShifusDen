@@ -56,7 +56,7 @@ export class TraineeListComponent implements OnInit {
   }
 
   closeSelectDateDialog() {
-    alert('called');
+    //alert('called');
     this.selectDateVisible = false;
     this.selectDateOpen = false;
   }
@@ -103,6 +103,7 @@ export class TraineeListComponent implements OnInit {
   searchUsers(fname: string, lname: string, psno: string) {
     this._traineeService.searchUser(fname, lname, psno).subscribe(trainees => this.searchResult = trainees,
       error => this.errorMessage = <any>error);
+      this.selectedItems=[];
   }
 
   markComplete(first_name: string, last_name: string, opco: string, psno: number) {
@@ -225,7 +226,6 @@ export class TraineeListComponent implements OnInit {
     }
   }
 
-
   assignUser2Training() {
     let traineeDetails: any = {
       trainingId: this.trainingDetails[2],
@@ -235,12 +235,14 @@ export class TraineeListComponent implements OnInit {
       target_date: new Date()
     };
 
-    this._traineeService.addUsertoTraining(traineeDetails).subscribe(response => console.log('Response-->'+response),
+    this._traineeService.addUsertoTraining(traineeDetails).subscribe(response =>   this.onUserAssignment(response)  ,
       error => this.errorMessage = <any>error);
 
-    //this.closeSelectDateDialog();
-
-    //this.getTrainees();
   }
 
+   onUserAssignment(response:Object){
+      console.log('Response-->'+response);
+      this.closeSelectDateDialog();
+      this.getTrainees();
+   }
 }
