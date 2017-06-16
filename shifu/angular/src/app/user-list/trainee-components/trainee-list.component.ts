@@ -34,7 +34,40 @@ export class TraineeListComponent implements OnInit {
   searchResult: ITrainee[];
   selectDateOpen: boolean = false;
   selectedItems: any = [];
+  selectedTrainee: any;
 
+  @Input() trainingStatusUpdateVisible: boolean = false;
+  trainingStatusUpdateOpen: boolean = false;
+  trainingStatusUpdateMinHeight: string = '200';
+  trainingStatusUpdateMaxWidth: string = '600';
+  action: string;
+  public CourseStatusUpdateDt: Date = new Date();
+
+  public getCourseStatusUpdateDate(): number {
+    return this.CourseStatusUpdateDt && this.CourseStatusUpdateDt.getTime() || new Date().getTime();
+  }
+
+  addMonthsCourseStatusUpdate(months: number) {
+    this.CourseStatusUpdateDt.setMonth(this.CourseStatusUpdateDt.getMonth() + months);
+  }
+
+  public CourseStatusUpdateToday(): void {
+    this.CourseStatusUpdateDt = new Date();
+  }
+
+  public CourseStatusUpdated20090824(): void {
+    this.CourseStatusUpdateDt = moment('2009-08-24', 'YYYY-MM-DD')
+      .toDate();
+  }
+
+  public CourseStatusUpdateClear(): void {
+    this.CourseStatusUpdateDt = void 0;
+    this.dateDisabled = undefined;
+  }
+
+  public CourseStatusUpdateToggleMin(): void {
+    this.CourseStatusUpdateDt = new Date(this.minDate.valueOf());
+  }
   //User assignment pop-up starts
   @Input() searchUserClosable = true;
   @Input() selectDateClosable = true;
@@ -55,12 +88,18 @@ export class TraineeListComponent implements OnInit {
     this.searchUserVisible = true;
   }
 
+  closetrainingStatusUpdateDialog() {
+    this.trainingStatusUpdateVisible = false;
+    this.trainingStatusUpdateOpen = false;
+  }
+  //User assignment pop-up ends
+
+
   closeSelectDateDialog() {
     //alert('called');
     this.selectDateVisible = false;
     this.selectDateOpen = false;
   }
-  //User assignment pop-up ends
 
   @ViewChild('frm') public userFrm: NgForm;
 
@@ -77,7 +116,7 @@ export class TraineeListComponent implements OnInit {
     else {
       this.tab = 'a';
     }
-
+    
     this.getTrainees();
     console.log('UserListComponent constructore called successfully');
 
@@ -103,15 +142,58 @@ export class TraineeListComponent implements OnInit {
   searchUsers(fname: string, lname: string, psno: string) {
     this._traineeService.searchUser(fname, lname, psno).subscribe(trainees => this.searchResult = trainees,
       error => this.errorMessage = <any>error);
-      this.selectedItems=[];
+    this.selectedItems = [];
   }
 
   markComplete(first_name: string, last_name: string, opco: string, psno: number) {
-    confirm("Do you really want to mark " + first_name + " " + last_name + " (" + opco + ")" + " as course completed?");
+    var r = confirm("Do you really want to mark " + first_name + " " + last_name + " (" + opco + ")" + " as course completed?");
+    if (r == true) {
+      this.selectedTrainee = psno;
+      this.action = "Completion";
+      this.trainingStatusUpdateOpen = true;
+    }
   }
 
   markAborted(first_name: string, last_name: string, opco: string, psno: number) {
-    confirm("Do you really want to remove " + first_name + " " + last_name + " (" + opco + ")" + " from the course?");
+    var r = confirm("Do you really want to remove " + first_name + " " + last_name + " (" + opco + ")" + " from the course?");
+    if (r == true) {
+      this.selectedTrainee = psno;
+      this.action = "Abandon";
+      this.trainingStatusUpdateOpen = true;
+    }
+  }
+
+  UserCourseStatusUpdate(status: string) {
+    
+    let traineeDetails: any;
+    if (this.action == 'Completion') {
+      traineeDetails = {
+        trainingId: this.trainingDetails[2],
+        updatedStatus: 'c',
+        psnos: this.selectedTrainee,
+        status_date: this.CourseStatusUpdateDt
+      };
+    }
+
+    if (this.action == 'Abandon') {
+      traineeDetails = {
+        trainingId: this.trainingDetails[2],
+        updatedStatus: 'a',
+        psnos: this.selectedTrainee,
+        status_date: this.CourseStatusUpdateDt
+      };
+      
+    }
+
+    this._traineeService.addUsertoTraining(traineeDetails).subscribe(response => this.onUserStatusUpdate(response),
+        error => this.errorMessage = <any>error);
+
+  }
+
+  onUserStatusUpdate(response: Object) {
+    console.log('Response-->' + response);
+    this.closetrainingStatusUpdateDialog();
+    this.getTrainees();
   }
 
   traineeSearch(form: NgForm) {
@@ -122,8 +204,17 @@ export class TraineeListComponent implements OnInit {
     this.close();
   }
 
+  public onSelectionOnCourseStatusUpdateDone(a) {
+    this.CourseStatusUpdateClose();
+  }
+
   public close(): void {
     this.opened = false;
+  }
+
+
+  public CourseStatusUpdateClose(): void {
+    this.UpdateStatusDateOpened = false;
   }
 
 
@@ -150,6 +241,9 @@ export class TraineeListComponent implements OnInit {
     startingDay: 1
   };
   private opened: boolean = false;
+  private UpdateStatusDateOpened: boolean = false;
+  private selectDateUpdateStatusOpen: boolean = false;
+
 
   public getDate(): number {
     return this.dt && this.dt.getTime() || new Date().getTime();
@@ -193,6 +287,12 @@ export class TraineeListComponent implements OnInit {
     return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
   }
 
+  public statusUpdateOpen(): void {
+    this.selectDateUpdateStatusOpen = true;
+    this.UpdateStatusDateOpened = !this.opened;
+  }
+
+
   public open(): void {
     this.selectDateOpen = true;
     this.opened = !this.opened;
@@ -235,14 +335,14 @@ export class TraineeListComponent implements OnInit {
       target_date: new Date()
     };
 
-    this._traineeService.addUsertoTraining(traineeDetails).subscribe(response =>   this.onUserAssignment(response)  ,
+    this._traineeService.addUsertoTraining(traineeDetails).subscribe(response => this.onUserAssignment(response),
       error => this.errorMessage = <any>error);
 
   }
 
-   onUserAssignment(response:Object){
-      console.log('Response-->'+response);
-      this.closeSelectDateDialog();
-      this.getTrainees();
-   }
+  onUserAssignment(response: Object) {
+    console.log('Response-->' + response);
+    this.closeSelectDateDialog();
+    this.getTrainees();
+  }
 }

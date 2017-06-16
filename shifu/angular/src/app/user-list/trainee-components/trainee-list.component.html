@@ -91,8 +91,8 @@
                                 <td>100%</td>
                                 <td>{{trainee.target_date | date : 'mediumDate'}}</td>
                                 <td>
-                                    <span (click)="markComplete(trainee.first_name,trainee.last_name,trainee.opco,trainee.psno)" class="glyphicon glyphicon-thumbs-up"></span>
-                                    <span (click)="markAborted(trainee.first_name,trainee.last_name,trainee.opco,trainee.psno)" class="glyphicon glyphicon-thumbs-down"></span>
+                                    <span (click)="markComplete(trainee.first_name,trainee.last_name,trainee.opco,trainee.psno)" class="glyphicon glyphicon-ok"></span>
+                                    <span (click)="markAborted(trainee.first_name,trainee.last_name,trainee.opco,trainee.psno)" class="glyphicon glyphicon-remove"></span>
                                 </td>
                             </tr>
                         </tbody>
@@ -138,37 +138,65 @@
     <button *ngIf=" selectDateClosable " (click)="closeSelectDateDialog() " aria-label="Close " class="dialog__close-btn ">X</button>
 </div>
 
-<div *ngIf="tab=='c' ">
-    <br><br>
-    <div class="container">
-        <div class='row content'>
-            <div class='col-md-2'> Filter by :</div>
-            <div class='col-md-2'>
-                <input type='text' [(ngModel)]='userFilter' />
+<div [@dialog] *ngIf="trainingStatusUpdateOpen" class="dialog" [style.min-height.px]='trainingStatusUpdateMinHeight' [style.max-width.px]='trainingStatusUpdateMaxWidth'>
+    <div class='panel panel-primary'>
+        <div class='panel-heading' style='font-size:large'>
+            Select {{action}} Date
+        </div>
+        <div class='panel-body'>
+            <form role="form" class="form-horizontal">
+                <div class="form-group">
+                    <div class='col-sm-5'>
+                        <div class='input-group date'>
+                            <input type='text' class="form-control" value="{{ getCourseStatusUpdateDate() | date:'dd-MMMM-yyyy' }}" />
+                            <span class="input-group-addon" (click)="statusUpdateOpen()">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-primary " (click)="UserCourseStatusUpdate()">Submit</button></div>
+                </div>
+            </form>
+            <div style=" display:inline-block; " *ngIf="UpdateStatusDateOpened ">
+                <datepicker [(ngModel)]="CourseStatusUpdateDt " [minDate]="minDate " [showWeeks]="true " [dateDisabled]="dateDisabled " (selectionDone)="onSelectionOnCourseStatusUpdateDone($event) "></datepicker>
             </div>
         </div>
-        <div class='row content' *ngIf='userFilter'>
-            <div class='col-md-6'>
+    </div>
+    <button *ngIf=" trainingStatusUpdateOpen " (click)="closetrainingStatusUpdateDialog() " aria-label="Close " class="dialog__close-btn ">X</button>
+</div>
+
+<div *ngIf="tab=='c'">
+    <br><br>
+    <div class="container ">
+        <div class='row content '>
+            <div class='col-md-2 '> Filter by :</div>
+            <div class='col-md-2 '>
+                <input type='text ' [(ngModel)]='userFilter ' />
+            </div>
+        </div>
+        <div class='row content ' *ngIf='userFilter '>
+            <div class='col-md-6 '>
                 <h4>Filtered by: {{userFilter}} </h4>
             </div>
         </div>
-        <div class='row content'> <br><br> </div>
-        <div class='row content'>
-            <div class="col-md-9">
-                <div class='table-responsive'>
+        <div class='row content '> <br><br> </div>
+        <div class='row content '>
+            <div class="col-md-9 ">
+                <div class='table-responsive '>
                     <table class="table table-striped ">
                         <thead>
                             <tr>
-                                <th class="col-xs-3">PS#</th>
-                                <th class="col-xs-4">Name</th>
-                                <th class="col-xs-3">Completion Date</th>
+                                <th class="col-xs-3 ">PS#</th>
+                                <th class="col-xs-4 ">Name</th>
+                                <th class="col-xs-3 ">Completion Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor='let trainee of trainees | traineeFilter : userFilter'>
+                            <tr *ngFor='let trainee of trainees | traineeFilter : userFilter '>
                                 <td>{{trainee.psno}}</td>
                                 <td>{{trainee.first_name}} , {{trainee.last_name}} ({{trainee.opco}})</td>
-                                <td>{{trainee.status_date | date : 'mediumDate'}}</td>
+                                <td>{{trainee.status_date | date : 'mediumDate '}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -177,39 +205,41 @@
         </div>
     </div>
 </div>
+
 <div *ngIf="tab=='a' ">
+
     <br><br>
-    <div class="container">
-        <div class='row content'>
-            <div class='col-md-2'> Filter by :</div>
-            <div class='col-md-2'>
-                <input type='text' [(ngModel)]='userFilter' />
+    <div class="container ">
+        <div class='row content '>
+            <div class='col-md-2 '> Filter by :</div>
+            <div class='col-md-2 '>
+                <input type='text ' [(ngModel)]='userFilter ' />
             </div>
         </div>
-        <div class='row content' *ngIf='userFilter'>
-            <div class='col-md-6'>
+        <div class='row content ' *ngIf='userFilter '>
+            <div class='col-md-6 '>
                 <h4>Filtered by: {{userFilter}} </h4>
             </div>
         </div>
-        <div class='row content'> <br><br> </div>
-        <div class='row content'>
-            <div class="col-md-9">
+        <div class='row content '> <br><br> </div>
+        <div class='row content '>
+            <div class="col-md-9 ">
                 <div class='table-responsive '>
                     <table class="table table-condensed table-striped ">
                         <thead>
                             <tr>
-                                <th class="col-xs-2">PS#</th>
-                                <th class="col-xs-4">Name</th>
-                                <th class="col-xs-2">% Completion</th>
-                                <th class="col-xs-3">Abandon Date</th>
+                                <th class="col-xs-2 ">PS#</th>
+                                <th class="col-xs-4 ">Name</th>
+                                <th class="col-xs-2 ">% Completion</th>
+                                <th class="col-xs-3 ">Abandon Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor='let trainee of trainees | traineeFilter : userFilter'>
+                            <tr *ngFor='let trainee of trainees | traineeFilter : userFilter '>
                                 <td>{{trainee.psno}}</td>
                                 <td>{{trainee.first_name}} , {{trainee.last_name}} ({{trainee.opco}})</td>
                                 <td>73%</td>
-                                <td>{{trainee.status_date | date : 'mediumDate'}}</td>
+                                <td>{{trainee.status_date | date : 'mediumDate '}}</td>
                             </tr>
                         </tbody>
                     </table>

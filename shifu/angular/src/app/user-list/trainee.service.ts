@@ -79,9 +79,8 @@ export class TraineeService {
 
         console.log(test);
         return test;  
-
     }   
-
+ 
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
